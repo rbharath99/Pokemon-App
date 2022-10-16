@@ -4,17 +4,13 @@ class Pokemon {
   final String image;
   final String height;
   final String weight;
-  final List<String> type;
-  final List<String> weaknesses;
 
   Pokemon({
     required this.number,
     required this.name, 
     required this.image,     
     required this.height, 
-    required this.weight, 
-    required this.type,
-    required this.weaknesses});
+    required this.weight,});
 
   // Constructor used for conversion from JSON to Pokémons.
   factory Pokemon.fromJson(Map<String, dynamic> json) {
@@ -24,8 +20,6 @@ class Pokemon {
       image: json['image'],
       height: json['height'],
       weight: json['weight'],
-      type: List<String>.from(json['type'].map((pokemonType) => pokemonType)),
-      weaknesses: List<String>.from(json['weaknesses'].map((pokemonWeakness) => pokemonWeakness)),
     );
   }
 }
