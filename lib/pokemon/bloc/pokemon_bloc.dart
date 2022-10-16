@@ -13,7 +13,7 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
   PokemonBloc({
     required PokemonRepository pokemonRepository,
   })  : _pokemonRepository = pokemonRepository,
-        super(const PokemonState(status: BlocStatus.initial)) {
+        super(const PokemonState()) {
     on<FetchPokemonData>(_fetchPokemonData);
   }
 
