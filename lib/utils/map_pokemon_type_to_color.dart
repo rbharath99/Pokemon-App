@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-// ignore: non_constant_identifier_names
-Map<String, Color> _MapTypesToColors = {
+Map<String, Color> _mapTypesToColors = {
   'Fire' : Colors.deepOrange,
   'Grass' : Colors.green[400]!,
   'Water' : Colors.blue[700]!,
@@ -19,8 +18,8 @@ Map<String, Color> _MapTypesToColors = {
 };
 
 Color? retrievePokemonType(String pokemonType) {
-  if(_MapTypesToColors.containsKey(pokemonType)) {
-    return _MapTypesToColors[pokemonType];
+  if(_mapTypesToColors.containsKey(pokemonType)) {
+    return _mapTypesToColors[pokemonType];
   }
   return Colors.grey;
 }
