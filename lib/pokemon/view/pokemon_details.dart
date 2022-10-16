@@ -14,16 +14,28 @@ class PokemonDetailsScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: true,
-        title: Text(pokemon.name, style: TextStyle(color: Colors.black)),
+        title: Text(
+          pokemon.name,
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
         backgroundColor: retrievePokemonType(pokemon.type[0]),
       ),
       body: Container(
         width: double.infinity,
-        padding: EdgeInsets.only(top: 30),
+        padding: EdgeInsets.only(
+          top: 30,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text(pokemon.name, style: TextStyle(fontSize: 20,),),
+            Text(
+              pokemon.name,
+              style: TextStyle(
+                fontSize: 20,
+              ),
+            ),
             Image.network(pokemon.image),
             Text('Height: ${pokemon.height}'),
             Text('Weight: ${pokemon.weight}'),
@@ -33,12 +45,14 @@ class PokemonDetailsScreen extends StatelessWidget {
               children: pokemon.type
                   .map(
                     (types) => Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 4.0,
+                      ),
                       child: FilterChip(
                         pressElevation: 2.0,
                         backgroundColor: retrievePokemonType(types),
                         label: Text(types),
-                        onSelected: null,
+                        onSelected: (_) {},
                       ),
                     ),
                   )
@@ -50,12 +64,14 @@ class PokemonDetailsScreen extends StatelessWidget {
               children: pokemon.weaknesses
                   .map(
                     (weaknesses) => Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 4.0,
+                      ),
                       child: FilterChip(
                         pressElevation: 2.0,
                         backgroundColor: retrievePokemonType(weaknesses),
                         label: Text(weaknesses),
-                        onSelected: null,
+                        onSelected: (_) {},
                       ),
                     ),
                   )
