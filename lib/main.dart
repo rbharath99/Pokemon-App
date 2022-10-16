@@ -19,9 +19,11 @@ class Pokedex extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             'Pokedex',
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(
+              color: Colors.black,
+            ),
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.red,
           centerTitle: true,
         ),
         body: RepositoryProvider(

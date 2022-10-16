@@ -23,10 +23,11 @@ class PokemonDetailsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Text(pokemon.name),
+            Text(pokemon.name, style: TextStyle(fontSize: 20,),),
+            Image.network(pokemon.image),
             Text('Height: ${pokemon.height}'),
             Text('Weight: ${pokemon.weight}'),
-            Text('types'),
+            Text('types:'),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: pokemon.type
@@ -43,7 +44,7 @@ class PokemonDetailsScreen extends StatelessWidget {
                   )
                   .toList(),
             ),
-            Text('weaknesses'),
+            Text('weaknesses:'),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: pokemon.weaknesses
