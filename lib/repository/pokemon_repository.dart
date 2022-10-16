@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:pokedex/models/pokemon.dart';
+import 'package:pokedex/pokemon/models/pokemon.dart';
 import 'package:http/http.dart' as http;
 
 class PokemonRepository {
@@ -8,10 +8,11 @@ class PokemonRepository {
 
   Future<List<Pokemon>> fetchPokemonData() async {
     final response = await http.get(Uri.parse(baseUrl));
-    print(response.statusCode);
 
     final List<dynamic> data = jsonDecode(response.body);
 
-    return data.map((json) => Pokemon.fromJson(json)).toList();
+    final List<Pokemon> pokemons = data.map((item) => Pokemon.fromJson(item)).toList();
+
+    return pokemons;
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokedex/pages/pokemon_card.dart';
-import 'package:pokedex/pages/pokemon_error.dart';
-import 'package:pokedex/pages/loading_bar.dart';
+import 'package:pokedex/pokemon/view/pokemon_card.dart';
+import 'package:pokedex/utils/status_widgets/pokemon_error.dart';
+import 'package:pokedex/utils/status_widgets/loading_bar.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
 import 'package:pokedex/utils/bloc_status.dart';
 
@@ -20,10 +20,11 @@ class _PokemonListViewState extends State<PokemonListView> {
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
         final bloc = context.read<PokemonBloc>();
-        final pokemonList = state.pokemons;
         final pokemonFilteredList = state.filteredPokemons;
-        if (state.status == BlocStatus.loading ||
-            state.status == BlocStatus.initial) {
+        if (state.status == BlocStatus.initial) {
+          bloc.add(FetchPokemonData());
+        }
+        if (state.status == BlocStatus.loading) {
           return LoadingBar();
         }
         if (state.status == BlocStatus.error) {

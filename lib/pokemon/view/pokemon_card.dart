@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex/models/pokemon.dart';
-import 'package:pokedex/pages/pokemon_details.dart';
+import 'package:pokedex/pokemon/models/pokemon.dart';
+import 'package:pokedex/pokemon/view/pokemon_details.dart';
 
 class PokemonCard extends StatefulWidget {
   const PokemonCard({Key? key, required this.pokemon}) : super(key: key);

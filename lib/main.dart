@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
-import 'package:pokedex/pokemon/pokemon_list_view.dart';
+import 'package:pokedex/pokemon/view/pokemon_list_view.dart';
 import 'package:pokedex/repository/pokemon_repository.dart';
 
 void main() => runApp(Pokedex());
