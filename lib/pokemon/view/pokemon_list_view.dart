@@ -48,17 +48,49 @@ class _PokemonListViewState extends State<PokemonListView> {
         }
         return Column(
           children: [
-            TextField(
-              controller: searchPokemonController,
-              decoration: InputDecoration(
-                hintText: 'Search for a Pokemon!',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                ),
+            Container(
+              width: _width,
+              height: 100,
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  BlocSelector<PokemonBloc, PokemonState, String> (
+                    selector: (state) => state.selectedOption,
+                    builder: (context, selectedOption) {
+                      return DropdownButton<String>(
+                        value: selectedOption,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: state.filterOptions.map((String option) {
+                          return DropdownMenuItem(
+                            value: option,
+                            child: Text(option),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          bloc.add(FilterPokemon(filterOption: newValue!));
+                          searchPokemonController.clear();
+                        },
+                      );
+                    },
+                  ),
+                  SizedBox(
+                    width: _width / 2,
+                    child: TextField(
+                      controller: searchPokemonController,
+                      decoration: InputDecoration(
+                        hintText: 'Search for a Pokemon!',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        bloc.add(SearchPokemon(searchedName: value));
+                      },
+                    ),
+                  ),
+                ],
               ),
-              onChanged: (value) {
-                bloc.add(SearchPokemon(searchedName: value));
-              },
             ),
             Expanded(
               child: SizedBox(
