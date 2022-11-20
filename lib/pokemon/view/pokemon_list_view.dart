@@ -69,6 +69,7 @@ class _PokemonListViewState extends State<PokemonListView> {
                         }).toList(),
                         onChanged: (String? newValue) {
                           bloc.add(FilterPokemon(filterOption: newValue!));
+                          searchPokemonController.clear();
                         },
                       );
                     },
