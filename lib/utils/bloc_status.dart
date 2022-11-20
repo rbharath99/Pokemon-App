@@ -4,4 +4,5 @@ enum BlocStatus {
   loaded,
   error,
   noData,
+  success,
 }

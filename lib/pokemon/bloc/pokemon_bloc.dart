@@ -15,6 +15,7 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
   })  : _pokemonRepository = pokemonRepository,
         super(const PokemonState()) {
     on<FetchPokemonData>(_fetchPokemonData);
+    on<SearchPokemon>(_searchPokemon);
   }
 
   final PokemonRepository _pokemonRepository;
@@ -31,5 +32,16 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     } catch (e) {
       emit(state.copyWith(status: BlocStatus.error));
     }
+  }
+
+  void _searchPokemon(
+      SearchPokemon event, Emitter<PokemonState> emit) {
+    final parsedInput = event.searchedName.trim().toLowerCase();
+    emit(state.copyWith(
+      filteredPokemons: state.pokemons
+          .where((pokemon) => pokemon.name.toLowerCase().contains(parsedInput))
+          .toList(),
+      status: BlocStatus.success,
+    ));
   }
 }

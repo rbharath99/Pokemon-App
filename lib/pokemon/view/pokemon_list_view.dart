@@ -14,8 +14,25 @@ class PokemonListView extends StatefulWidget {
 }
 
 class _PokemonListViewState extends State<PokemonListView> {
+
+  late TextEditingController searchPokemonController;
+
+  @override
+  void initState() {
+    super.initState();
+    searchPokemonController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    searchPokemonController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    final _height = MediaQuery.of(context).size.height;
+    final _width = MediaQuery.of(context).size.width;
     return BlocBuilder<PokemonBloc, PokemonState>(
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
@@ -30,12 +47,32 @@ class _PokemonListViewState extends State<PokemonListView> {
         if (state.status == BlocStatus.error) {
           return PokemonError();
         }
-        return ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: pokemonFilteredList.length,
-          itemBuilder: (context, index) {
-            return PokemonCard(pokemon: pokemonFilteredList[index]);
-          },
+        return Column(
+          children: [
+            TextField(
+              controller: searchPokemonController,
+              decoration: InputDecoration(
+                hintText: 'Search for a Pokemon!',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(15)),
+                ),
+              ),
+              onChanged: (value) {
+                bloc.add(SearchPokemon(searchedName: value));
+              },
+            ),
+            SizedBox(
+              height: _height,
+              width: _width,
+              child: ListView.builder(
+                physics: const BouncingScrollPhysics(),
+                itemCount: pokemonFilteredList.length,
+                itemBuilder: (context, index) {
+                  return PokemonCard(pokemon: pokemonFilteredList[index]);
+                },
+              ),
+            ),
+          ],
         );
       },
     );
