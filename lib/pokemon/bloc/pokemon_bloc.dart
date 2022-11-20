@@ -34,8 +34,7 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     }
   }
 
-  void _searchPokemon(
-      SearchPokemon event, Emitter<PokemonState> emit) {
+  void _searchPokemon(SearchPokemon event, Emitter<PokemonState> emit) {
     final parsedInput = event.searchedName.trim().toLowerCase();
     emit(state.copyWith(
       filteredPokemons: state.pokemons

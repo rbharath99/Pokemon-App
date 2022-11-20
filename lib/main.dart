@@ -34,6 +34,19 @@ class Pokedex extends StatelessWidget {
             child: PokemonListView(),
           ),
         ),
+        bottomNavigationBar: Container(
+          height: 56,
+          color: Colors.red,
+          child: Center(
+            child: Text(
+              'Gotta Catch ’Em All',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

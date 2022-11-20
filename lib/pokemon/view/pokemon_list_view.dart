@@ -14,7 +14,6 @@ class PokemonListView extends StatefulWidget {
 }
 
 class _PokemonListViewState extends State<PokemonListView> {
-
   late TextEditingController searchPokemonController;
 
   @override
