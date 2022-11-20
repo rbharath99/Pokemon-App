@@ -45,12 +45,12 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     ));
   }
 
-  void _filterPokemon(FilterPokemon event, Emitter<PokemonState> emit) {
+  Future<void> _filterPokemon(FilterPokemon event, Emitter<PokemonState> emit) async {
     final option = event.filterOption;
-    print(option);
     switch(option) {
       case 'none':
-        emit(state.copyWith(filteredPokemons: state.pokemons, status: BlocStatus.success));
+        final pokemonList = await _pokemonRepository.fetchPokemonData();
+        emit(state.copyWith(filteredPokemons: pokemonList, status: BlocStatus.success));
         break;
       case 'height':
         state.pokemons.sort((b, a) => a.height.compareTo(b.height));
