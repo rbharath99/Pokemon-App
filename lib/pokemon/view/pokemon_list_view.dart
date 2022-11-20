@@ -15,11 +15,18 @@ class PokemonListView extends StatefulWidget {
 
 class _PokemonListViewState extends State<PokemonListView> {
   late TextEditingController searchPokemonController;
+  final List<String> filterOptions = [
+    'none',
+    'height',
+    'weight',
+  ];
+  late String defaultOption;
 
   @override
   void initState() {
     super.initState();
     searchPokemonController = TextEditingController();
+    defaultOption = filterOptions.first;
   }
 
   @override
@@ -32,12 +39,6 @@ class _PokemonListViewState extends State<PokemonListView> {
   Widget build(BuildContext context) {
     final _height = MediaQuery.of(context).size.height;
     final _width = MediaQuery.of(context).size.width;
-    var filterOptions = [
-      'none',
-      'height',
-      'weight',
-    ];
-    var defaultOption = 'none';
     return BlocBuilder<PokemonBloc, PokemonState>(
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
@@ -71,6 +72,9 @@ class _PokemonListViewState extends State<PokemonListView> {
                       );
                     }).toList(),
                     onChanged: (String? newValue) {
+                      setState(() {
+                        defaultOption = newValue!;
+                      });
                       bloc.add(FilterPokemon(filterOption: newValue!));
                     },
                   ),
