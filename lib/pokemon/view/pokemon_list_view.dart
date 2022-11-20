@@ -61,15 +61,17 @@ class _PokemonListViewState extends State<PokemonListView> {
                 bloc.add(SearchPokemon(searchedName: value));
               },
             ),
-            SizedBox(
-              height: _height,
-              width: _width,
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: pokemonFilteredList.length,
-                itemBuilder: (context, index) {
-                  return PokemonCard(pokemon: pokemonFilteredList[index]);
-                },
+            Expanded(
+              child: SizedBox(
+                height: _height,
+                width: _width,
+                child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  itemCount: pokemonFilteredList.length,
+                  itemBuilder: (context, index) {
+                    return PokemonCard(pokemon: pokemonFilteredList[index]);
+                  },
+                ),
               ),
             ),
           ],
