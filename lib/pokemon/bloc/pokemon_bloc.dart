@@ -50,15 +50,15 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     switch(option) {
       case 'none':
         final pokemonList = await _pokemonRepository.fetchPokemonData();
-        emit(state.copyWith(filteredPokemons: pokemonList, status: BlocStatus.success));
+        emit(state.copyWith(filteredPokemons: pokemonList, status: BlocStatus.success, selectedOption: option));
         break;
       case 'height':
         state.pokemons.sort((b, a) => a.height.compareTo(b.height));
-        emit(state.copyWith(filteredPokemons: state.pokemons, status: BlocStatus.success));
+        emit(state.copyWith(filteredPokemons: state.pokemons, status: BlocStatus.success, selectedOption: option));
         break;
       case 'weight':
         state.pokemons.sort((b, a) => a.weight.compareTo(b.weight));
-        emit(state.copyWith(filteredPokemons: state.pokemons, status: BlocStatus.success));
+        emit(state.copyWith(filteredPokemons: state.pokemons, status: BlocStatus.success, selectedOption: option));
         break;
     }
   }

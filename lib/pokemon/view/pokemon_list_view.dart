@@ -15,18 +15,11 @@ class PokemonListView extends StatefulWidget {
 
 class _PokemonListViewState extends State<PokemonListView> {
   late TextEditingController searchPokemonController;
-  final List<String> filterOptions = [
-    'none',
-    'height',
-    'weight',
-  ];
-  late String defaultOption;
 
   @override
   void initState() {
     super.initState();
     searchPokemonController = TextEditingController();
-    defaultOption = filterOptions.first;
   }
 
   @override
@@ -62,20 +55,22 @@ class _PokemonListViewState extends State<PokemonListView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  DropdownButton(
-                    value: defaultOption,
-                    icon: const Icon(Icons.keyboard_arrow_down),
-                    items: filterOptions.map((String option) {
-                      return DropdownMenuItem(
-                        value: option,
-                        child: Text(option),
+                  BlocSelector<PokemonBloc, PokemonState, String> (
+                    selector: (state) => state.selectedOption,
+                    builder: (context, selectedOption) {
+                      return DropdownButton<String>(
+                        value: selectedOption,
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        items: state.filterOptions.map((String option) {
+                          return DropdownMenuItem(
+                            value: option,
+                            child: Text(option),
+                          );
+                        }).toList(),
+                        onChanged: (String? newValue) {
+                          bloc.add(FilterPokemon(filterOption: newValue!));
+                        },
                       );
-                    }).toList(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        defaultOption = newValue!;
-                      });
-                      bloc.add(FilterPokemon(filterOption: newValue!));
                     },
                   ),
                   SizedBox(
