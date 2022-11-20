@@ -32,6 +32,12 @@ class _PokemonListViewState extends State<PokemonListView> {
   Widget build(BuildContext context) {
     final _height = MediaQuery.of(context).size.height;
     final _width = MediaQuery.of(context).size.width;
+    var filterOptions = [
+      'none',
+      'height',
+      'weight',
+    ];
+    var defaultOption = 'none';
     return BlocBuilder<PokemonBloc, PokemonState>(
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
@@ -48,17 +54,43 @@ class _PokemonListViewState extends State<PokemonListView> {
         }
         return Column(
           children: [
-            TextField(
-              controller: searchPokemonController,
-              decoration: InputDecoration(
-                hintText: 'Search for a Pokemon!',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                ),
+            Container(
+              width: _width,
+              height: 100,
+              color: Colors.white,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  DropdownButton(
+                    value: defaultOption,
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    items: filterOptions.map((String option) {
+                      return DropdownMenuItem(
+                        value: option,
+                        child: Text(option),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      bloc.add(FilterPokemon(filterOption: newValue!));
+                    },
+                  ),
+                  SizedBox(
+                    width: _width / 2,
+                    child: TextField(
+                      controller: searchPokemonController,
+                      decoration: InputDecoration(
+                        hintText: 'Search for a Pokemon!',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                      ),
+                      onChanged: (value) {
+                        bloc.add(SearchPokemon(searchedName: value));
+                      },
+                    ),
+                  ),
+                ],
               ),
-              onChanged: (value) {
-                bloc.add(SearchPokemon(searchedName: value));
-              },
             ),
             Expanded(
               child: SizedBox(

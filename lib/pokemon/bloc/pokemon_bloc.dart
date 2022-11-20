@@ -16,6 +16,7 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
         super(const PokemonState()) {
     on<FetchPokemonData>(_fetchPokemonData);
     on<SearchPokemon>(_searchPokemon);
+    on<FilterPokemon>(_filterPokemon);
   }
 
   final PokemonRepository _pokemonRepository;
@@ -42,5 +43,23 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
           .toList(),
       status: BlocStatus.success,
     ));
+  }
+
+  void _filterPokemon(FilterPokemon event, Emitter<PokemonState> emit) {
+    final option = event.filterOption;
+    print(option);
+    switch(option) {
+      case 'none':
+        emit(state.copyWith(filteredPokemons: state.pokemons, status: BlocStatus.success));
+        break;
+      case 'height':
+        state.pokemons.sort((b, a) => a.height.compareTo(b.height));
+        emit(state.copyWith(filteredPokemons: state.pokemons, status: BlocStatus.success));
+        break;
+      case 'weight':
+        state.pokemons.sort((b, a) => a.weight.compareTo(b.weight));
+        emit(state.copyWith(filteredPokemons: state.pokemons, status: BlocStatus.success));
+        break;
+    }
   }
 }
