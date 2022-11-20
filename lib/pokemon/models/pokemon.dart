@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'pokemon.g.dart';
+
+@JsonSerializable()
 class Pokemon {
   final String number;
   final String name;
@@ -16,16 +21,7 @@ class Pokemon {
     required this.type,
     required this.weaknesses});
 
-  // Constructor used for conversion from JSON to Pokémons.
-  factory Pokemon.fromJson(Map<String, dynamic> json) {
-    return Pokemon(
-      number: json['number'],
-      name: json['name'],
-      image: json['image'],
-      height: json['height'],
-      weight: json['weight'],
-      type: List<String>.from(json['type'].map((pokemonType) => pokemonType)),
-      weaknesses: List<String>.from(json['weaknesses'].map((pokemonWeakness) => pokemonWeakness)),
-    );
-  }
+  factory Pokemon.fromJson(Map<String, dynamic> json) => _$PokemonFromJson(json);
+
+  Map<String, dynamic> toJson() => _$PokemonToJson(this);
 }
