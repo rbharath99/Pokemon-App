@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokedex/pokemon/view/my_pokemon_view.dart';
 import 'package:pokedex/pokemon/view/pokemon_card.dart';
 import 'package:pokedex/utils/status_widgets/pokemon_error.dart';
 import 'package:pokedex/utils/status_widgets/loading_bar.dart';
@@ -37,6 +38,7 @@ class _PokemonListViewState extends State<PokemonListView> {
       builder: (context, state) {
         final bloc = context.read<PokemonBloc>();
         final pokemonFilteredList = state.filteredPokemons;
+        final myPokemonList = state.myPokemons;
         if (state.status == BlocStatus.initial) {
           bloc.add(FetchPokemonData());
         }
@@ -55,7 +57,7 @@ class _PokemonListViewState extends State<PokemonListView> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  BlocSelector<PokemonBloc, PokemonState, String> (
+                  BlocSelector<PokemonBloc, PokemonState, String>(
                     selector: (state) => state.selectedOption,
                     builder: (context, selectedOption) {
                       return DropdownButton<String>(
@@ -73,6 +75,19 @@ class _PokemonListViewState extends State<PokemonListView> {
                         },
                       );
                     },
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => MyPokemonListView(
+                            myPokemonList: myPokemonList,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Text('My Pokemon'),
                   ),
                   SizedBox(
                     width: _width / 2,

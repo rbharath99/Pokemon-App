@@ -1,18 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
 import 'package:pokedex/pokemon/models/pokemon.dart';
 import 'package:pokedex/pokemon/view/pokemon_details.dart';
 import 'package:pokedex/utils/map_pokemon_type_to_color.dart';
 
-class PokemonCard extends StatefulWidget {
+class PokemonCard extends StatelessWidget {
   const PokemonCard({Key? key, required this.pokemon}) : super(key: key);
 
   final Pokemon pokemon;
 
-  @override
-  State<PokemonCard> createState() => _PokemonCardState();
-}
-
-class _PokemonCardState extends State<PokemonCard> {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
@@ -20,13 +17,13 @@ class _PokemonCardState extends State<PokemonCard> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PokemonDetailsScreen(pokemon: widget.pokemon),
+            builder: (context) => PokemonDetailsScreen(pokemon: pokemon),
           ),
         );
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
-          retrievePokemonType(widget.pokemon.type[0]),
+          retrievePokemonType(pokemon.type[0]),
         ),
       ),
       child: Row(
@@ -36,19 +33,19 @@ class _PokemonCardState extends State<PokemonCard> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                'Name: ${widget.pokemon.name}',
+                'Name: ${pokemon.name}',
                 style: TextStyle(
                   color: Colors.black,
                 ),
               ),
               Text(
-                'Height: ${widget.pokemon.height}',
+                'Height: ${pokemon.height}',
                 style: TextStyle(
                   color: Colors.black,
                 ),
               ),
               Text(
-                'Weigth: ${widget.pokemon.weight}',
+                'Weigth: ${pokemon.weight}',
                 style: TextStyle(
                   color: Colors.black,
                 ),
@@ -56,7 +53,13 @@ class _PokemonCardState extends State<PokemonCard> {
             ],
           ),
           Spacer(),
-          Image.network(widget.pokemon.image),
+          Image.network(pokemon.image),
+          Spacer(),
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () =>
+                context.read<PokemonBloc>().add(AddPokemon(pokemon: pokemon)),
+          ),
         ],
       ),
     );

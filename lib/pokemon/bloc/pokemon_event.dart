@@ -21,9 +21,26 @@ class SearchPokemon extends PokemonEvent {
 class FilterPokemon extends PokemonEvent {
   final String filterOption;
 
-
   const FilterPokemon({required this.filterOption});
 
   @override
   List<Object?> get props => [filterOption];
+}
+
+class AddPokemon extends PokemonEvent {
+  final Pokemon pokemon;
+
+  const AddPokemon({required this.pokemon});
+
+  @override
+  List<Object?> get props => [pokemon];
+}
+
+class RemovePokemon extends PokemonEvent {
+  final Pokemon pokemon;
+
+  const RemovePokemon({required this.pokemon});
+
+  @override
+  List<Object?> get props => [pokemon];
 }

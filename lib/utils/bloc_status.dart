@@ -5,4 +5,6 @@ enum BlocStatus {
   error,
   noData,
   success,
+  added,
+  removed,
 }
