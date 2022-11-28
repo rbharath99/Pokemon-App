@@ -6,6 +6,7 @@ import 'package:pokedex/utils/status_widgets/pokemon_error.dart';
 import 'package:pokedex/utils/status_widgets/loading_bar.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
 import 'package:pokedex/utils/bloc_status.dart';
+import 'package:pokedex/utils/toast_view.dart';
 
 class PokemonListView extends StatefulWidget {
   const PokemonListView({Key? key}) : super(key: key);
@@ -33,7 +34,15 @@ class _PokemonListViewState extends State<PokemonListView> {
   Widget build(BuildContext context) {
     final _height = MediaQuery.of(context).size.height;
     final _width = MediaQuery.of(context).size.width;
-    return BlocBuilder<PokemonBloc, PokemonState>(
+    return BlocConsumer<PokemonBloc, PokemonState>(
+      listener: (context, state) {
+        if (state.status == BlocStatus.added) {
+          context.showPokemonAdded();
+        }
+        if (state.status == BlocStatus.removed) {
+          context.showPokemonRemoved();
+        }
+      },
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
         final bloc = context.read<PokemonBloc>();
