@@ -32,4 +32,19 @@ extension ToastX on BuildContext {
           style: TextStyle(color: Colors.black),
         ),
       ).show(this);
+
+  void showPokemonExistedMessage() => MotionToast(
+        icon: Icons.close,
+        primaryColor: Colors.white,
+        secondaryColor: Colors.red,
+        backgroundType: BackgroundType.solid,
+        title: Text(
+          'Failed!',
+          style: TextStyle(color: Colors.red, fontSize: 18),
+        ),
+        description: Text(
+          'Pokemon is Already Added to Favorites!',
+          style: TextStyle(color: Colors.red),
+        ),
+      ).show(this);
 }

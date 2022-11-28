@@ -6,5 +6,6 @@ enum BlocStatus {
   noData,
   success,
   added,
+  pokemonExisted,
   removed,
 }

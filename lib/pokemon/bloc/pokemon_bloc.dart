@@ -77,9 +77,13 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
 
   void _addPokemon(AddPokemon event, Emitter<PokemonState> emit) {
     final selectedPokemon = event.pokemon;
-    final List<Pokemon> pokemonList = List.from(state.myPokemons)
-      ..add(selectedPokemon);
-    emit(state.copyWith(myPokemons: pokemonList, status: BlocStatus.added));
+    if (List.from(state.myPokemons).contains(selectedPokemon)) {
+      emit(state.copyWith(status: BlocStatus.pokemonExisted));
+    } else {
+      final List<Pokemon> pokemonList = List.from(state.myPokemons)
+        ..add(selectedPokemon);
+      emit(state.copyWith(myPokemons: pokemonList, status: BlocStatus.added));
+    }
   }
 
   void _removePokemon(RemovePokemon event, Emitter<PokemonState> emit) {

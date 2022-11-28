@@ -42,6 +42,9 @@ class _PokemonListViewState extends State<PokemonListView> {
         if (state.status == BlocStatus.removed) {
           context.showPokemonRemoved();
         }
+        if (state.status == BlocStatus.pokemonExisted) {
+          context.showPokemonExistedMessage();
+        }
       },
       buildWhen: (previous, current) => previous != current,
       builder: (context, state) {
