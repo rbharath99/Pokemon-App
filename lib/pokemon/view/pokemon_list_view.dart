@@ -63,44 +63,63 @@ class _PokemonListViewState extends State<PokemonListView> {
         return Column(
           children: [
             Container(
+              padding: EdgeInsets.symmetric(horizontal: 15),
               width: _width,
               height: 100,
               color: Colors.white,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  BlocSelector<PokemonBloc, PokemonState, String>(
-                    selector: (state) => state.selectedOption,
-                    builder: (context, selectedOption) {
-                      return DropdownButton<String>(
-                        value: selectedOption,
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        items: state.filterOptions.map((String option) {
-                          return DropdownMenuItem(
-                            value: option,
-                            child: Text(option),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      BlocSelector<PokemonBloc, PokemonState, String>(
+                        selector: (state) => state.selectedOption,
+                        builder: (context, selectedOption) {
+                          return DropdownButton<String>(
+                            value: selectedOption,
+                            icon: const Icon(Icons.keyboard_arrow_down),
+                            items: state.filterOptions.map((String option) {
+                              return DropdownMenuItem(
+                                value: option,
+                                child: Text(option),
+                              );
+                            }).toList(),
+                            onChanged: (String? newValue) {
+                              bloc.add(FilterPokemon(filterOption: newValue!));
+                              searchPokemonController.clear();
+                            },
                           );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          bloc.add(FilterPokemon(filterOption: newValue!));
-                          searchPokemonController.clear();
                         },
-                      );
-                    },
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => MyPokemonListView(
-                            myPokemonList: myPokemonList,
+                      ),
+                      const SizedBox(width: 5),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
                           ),
                         ),
-                      );
-                    },
-                    child: Text('My Pokemon'),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyPokemonListView(
+                                myPokemonList: myPokemonList,
+                              ),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'My Pokemon',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
                   ),
+                  Spacer(),
                   SizedBox(
                     width: _width / 2,
                     child: TextField(
