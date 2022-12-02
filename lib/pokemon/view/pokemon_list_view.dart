@@ -121,11 +121,12 @@ class _PokemonListViewState extends State<PokemonListView> {
                   ),
                   Spacer(),
                   SizedBox(
-                    width: _width / 2,
+                    width: _width < 450 ? _width / 3 : _width / 2,
                     child: TextField(
                       controller: searchPokemonController,
                       decoration: InputDecoration(
                         hintText: 'Search for a Pokemon!',
+                        hintStyle: TextStyle(fontSize: _width < 450 ? 10 : 15),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.all(Radius.circular(15)),
                         ),
