@@ -12,6 +12,9 @@ class PokemonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Pokemon> myPokemonsList =
+        context.select((PokemonBloc bloc) => bloc.state.myPokemons);
+    final bool isFound = myPokemonsList.contains(pokemon);
     return OutlinedButton(
       onPressed: () {
         Navigator.push(
@@ -55,11 +58,19 @@ class PokemonCard extends StatelessWidget {
           Spacer(),
           Image.network(pokemon.image),
           Spacer(),
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () =>
-                context.read<PokemonBloc>().add(AddPokemon(pokemon: pokemon)),
-          ),
+          isFound
+              ? IconButton(
+                  icon: Icon(Icons.remove),
+                  onPressed: () => context
+                      .read<PokemonBloc>()
+                      .add(RemovePokemon(pokemon: pokemon)),
+                )
+              : IconButton(
+                  icon: Icon(Icons.add),
+                  onPressed: () => context
+                      .read<PokemonBloc>()
+                      .add(AddPokemon(pokemon: pokemon)),
+                ),
         ],
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/pokemon/models/pokemon.dart';
-import 'package:pokedex/pokemon/view/pokemon_card.dart';
+import 'package:pokedex/pokemon/view/pokemon_details.dart';
+import 'package:pokedex/utils/map_pokemon_type_to_color.dart';
 
 class MyPokemonListView extends StatelessWidget {
   const MyPokemonListView({Key? key, required this.myPokemonList})
@@ -34,7 +35,34 @@ class MyPokemonListView extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 itemCount: myPokemonList.length,
                 itemBuilder: (context, index) {
-                  return PokemonCard(pokemon: myPokemonList[index]);
+                  return OutlinedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => PokemonDetailsScreen(
+                              pokemon: myPokemonList[index]),
+                        ),
+                      );
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(
+                        retrievePokemonType(myPokemonList[index].type[0]),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          myPokemonList[index].name,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
+                        Image.network(myPokemonList[index].image),
+                      ],
+                    ),
+                  );
                 },
               ),
             ),
