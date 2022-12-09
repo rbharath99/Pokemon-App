@@ -25,50 +25,57 @@ class MyPokemonListView extends StatelessWidget {
         backgroundColor: Colors.red,
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: SizedBox(
-              height: _height,
-              width: _width,
-              child: ListView.builder(
-                physics: const BouncingScrollPhysics(),
-                itemCount: myPokemonList.length,
-                itemBuilder: (context, index) {
-                  return OutlinedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => PokemonDetailsScreen(
-                              pokemon: myPokemonList[index]),
-                        ),
-                      );
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                        retrievePokemonType(myPokemonList[index].type[0]),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          myPokemonList[index].name,
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        ),
-                        Image.network(myPokemonList[index].image),
-                      ],
-                    ),
-                  );
-                },
+      body: myPokemonList.isEmpty
+          ? Center(
+              child: Text(
+                'You have no favorite pokemons!',
+                style: TextStyle(color: Colors.black),
               ),
+            )
+          : Column(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    height: _height,
+                    width: _width,
+                    child: ListView.builder(
+                      physics: const BouncingScrollPhysics(),
+                      itemCount: myPokemonList.length,
+                      itemBuilder: (context, index) {
+                        return OutlinedButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PokemonDetailsScreen(
+                                    pokemon: myPokemonList[index]),
+                              ),
+                            );
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                              retrievePokemonType(myPokemonList[index].type[0]),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(
+                                myPokemonList[index].name,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                              Image.network(myPokemonList[index].image),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }
