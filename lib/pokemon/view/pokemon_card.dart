@@ -60,12 +60,14 @@ class PokemonCard extends StatelessWidget {
           Spacer(),
           isFound
               ? IconButton(
+                  color: Colors.white,
                   icon: Icon(Icons.remove),
                   onPressed: () => context
                       .read<PokemonBloc>()
                       .add(RemovePokemon(pokemon: pokemon)),
                 )
               : IconButton(
+                  color: Colors.white,
                   icon: Icon(Icons.add),
                   onPressed: () => context
                       .read<PokemonBloc>()
