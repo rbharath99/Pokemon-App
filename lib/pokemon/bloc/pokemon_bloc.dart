@@ -19,6 +19,7 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     on<FilterPokemon>(_filterPokemon);
     on<AddPokemon>(_addPokemon);
     on<RemovePokemon>(_removePokemon);
+    on<SetPokemon>(_setPokemon);
   }
 
   final PokemonRepository _pokemonRepository;
@@ -28,10 +29,13 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     try {
       emit(state.copyWith(status: BlocStatus.loading));
       final pokemonList = await _pokemonRepository.fetchPokemonData();
-      emit(state.copyWith(
+      emit(
+        state.copyWith(
           status: BlocStatus.loaded,
           pokemons: pokemonList,
-          filteredPokemons: pokemonList));
+          filteredPokemons: pokemonList,
+        ),
+      );
     } catch (e) {
       emit(state.copyWith(status: BlocStatus.error));
     }
@@ -53,24 +57,33 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     switch (option) {
       case 'none':
         final pokemonList = await _pokemonRepository.fetchPokemonData();
-        emit(state.copyWith(
+        emit(
+          state.copyWith(
             filteredPokemons: pokemonList,
             status: BlocStatus.success,
-            selectedOption: option));
+            selectedOption: option,
+          ),
+        );
         break;
       case 'height':
         state.pokemons.sort((b, a) => a.height.compareTo(b.height));
-        emit(state.copyWith(
+        emit(
+          state.copyWith(
             filteredPokemons: state.pokemons,
             status: BlocStatus.success,
-            selectedOption: option));
+            selectedOption: option,
+          ),
+        );
         break;
       case 'weight':
         state.pokemons.sort((b, a) => a.weight.compareTo(b.weight));
-        emit(state.copyWith(
+        emit(
+          state.copyWith(
             filteredPokemons: state.pokemons,
             status: BlocStatus.success,
-            selectedOption: option));
+            selectedOption: option,
+          ),
+        );
         break;
     }
   }
@@ -82,7 +95,13 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     } else {
       final List<Pokemon> pokemonList = List.from(state.myPokemons)
         ..add(selectedPokemon);
-      emit(state.copyWith(myPokemons: pokemonList, status: BlocStatus.added));
+      emit(
+        state.copyWith(
+          myPokemons: pokemonList,
+          status: BlocStatus.added,
+          pokemonRoster: [],
+        ),
+      );
     }
   }
 
@@ -90,6 +109,27 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     final selectedPokemon = event.pokemon;
     final List<Pokemon> pokemonList = List.from(state.myPokemons)
       ..remove(selectedPokemon);
-    emit(state.copyWith(myPokemons: pokemonList, status: BlocStatus.removed));
+    emit(
+      state.copyWith(
+        myPokemons: pokemonList,
+        status: BlocStatus.removed,
+        pokemonRoster: [],
+      ),
+    );
+  }
+
+  Future<void> _setPokemon(SetPokemon event, Emitter<PokemonState> emit) async {
+    final selectedPokemon = event.pokemon;
+    List<Pokemon> pokemonRoster = List.from(state.pokemonRoster)
+      ..add(selectedPokemon);
+    if (pokemonRoster.length < 6) {
+      emit(
+        state.copyWith(
+          pokemon: selectedPokemon,
+          status: BlocStatus.addedToTeam,
+          pokemonRoster: pokemonRoster,
+        ),
+      );
+    }
   }
 }

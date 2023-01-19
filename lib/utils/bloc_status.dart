@@ -8,4 +8,6 @@ enum BlocStatus {
   added,
   pokemonExisted,
   removed,
+  addedToTeam,
+  removedFromTeam,
 }

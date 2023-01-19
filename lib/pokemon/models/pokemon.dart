@@ -12,7 +12,17 @@ class Pokemon {
   final List<String> type;
   final List<String> weaknesses;
 
-  Pokemon({
+  static const empty = Pokemon(
+    number: '',
+    name: '',
+    image: '',
+    height: '',
+    weight: '',
+    type: [],
+    weaknesses: [],
+  );
+
+  const Pokemon({
     required this.number,
     required this.name, 
     required this.image,     
