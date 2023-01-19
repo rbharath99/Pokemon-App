@@ -41,7 +41,7 @@ class PokemonTeam extends StatelessWidget {
                   return SizedBox(
                     width: 500,
                     height: 100,
-                    child: ColoredBox(
+                    child: Container(
                       color: retrievePokemonType(pokemonRoster[index].type[0])!,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,16 +51,24 @@ class PokemonTeam extends StatelessWidget {
                             pokemonRoster[index].name,
                             style: TextStyle(color: Colors.black),
                           ),
-                          IconButton(
-                            color: Colors.white,
-                            onPressed: () => {
-                              context.read<PokemonBloc>().add(
-                                    RemovePokemonFromRoster(
-                                      pokemon: pokemonRoster[index],
-                                    ),
-                                  )
-                            },
-                            icon: Icon(Icons.remove),
+                          CircleAvatar(
+                            radius: 20,
+                            backgroundColor: Colors.white,
+                            child: IconButton(
+                              onPressed: () => {
+                                context.read<PokemonBloc>().add(
+                                      RemovePokemonFromRoster(
+                                        pokemon: pokemonRoster[index],
+                                      ),
+                                    )
+                              },
+                              icon: Icon(
+                                Icons.remove,
+                                color: retrievePokemonType(
+                                  pokemonRoster[index].type[0],
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),
