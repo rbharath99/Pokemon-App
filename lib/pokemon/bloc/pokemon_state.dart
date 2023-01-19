@@ -6,6 +6,7 @@ class PokemonState extends Equatable {
     this.pokemons = const [],
     this.myPokemons = const [],
     this.filteredPokemons = const [],
+    this.pokemonRoster = const [],
     this.filterOptions = const ['none', 'height', 'weight'],
     this.selectedOption = 'none',
     this.pokemon = Pokemon.empty,
@@ -15,6 +16,7 @@ class PokemonState extends Equatable {
   final List<Pokemon> pokemons;
   final List<Pokemon> myPokemons;
   final List<Pokemon> filteredPokemons;
+  final List<Pokemon> pokemonRoster;
   final List<String> filterOptions;
   final String selectedOption;
   final Pokemon pokemon;
@@ -24,6 +26,7 @@ class PokemonState extends Equatable {
     List<Pokemon>? pokemons,
     List<Pokemon>? myPokemons,
     List<Pokemon>? filteredPokemons,
+    List<Pokemon>? pokemonRoster,
     List<String>? filterOptions,
     String? selectedOption,
     Pokemon? pokemon,
@@ -34,6 +37,7 @@ class PokemonState extends Equatable {
       myPokemons: myPokemons ?? this.myPokemons,
       filteredPokemons: filteredPokemons ?? this.filteredPokemons,
       filterOptions: filterOptions ?? this.filterOptions,
+      pokemonRoster: pokemonRoster ?? this.pokemonRoster,
       selectedOption: selectedOption ?? this.selectedOption,
       pokemon: pokemon ?? this.pokemon,
     );
@@ -46,6 +50,7 @@ class PokemonState extends Equatable {
         myPokemons,
         filteredPokemons,
         filterOptions,
+        pokemonRoster,
         selectedOption,
         pokemon,
       ];

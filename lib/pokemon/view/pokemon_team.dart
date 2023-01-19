@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
 import 'package:pokedex/pokemon/dialog/pokemon_selection.dart';
 import 'package:pokedex/pokemon/models/pokemon.dart';
-import 'package:pokedex/utils/bloc_status.dart';
 import 'package:pokedex/utils/map_pokemon_type_to_color.dart';
 
 class PokemonTeam extends StatelessWidget {
@@ -13,8 +12,8 @@ class PokemonTeam extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.select((PokemonBloc bloc) => bloc.state.status);
-    final pokemon = context.select((PokemonBloc bloc) => bloc.state.pokemon);
+    final pokemonRoster =
+        context.select((PokemonBloc bloc) => bloc.state.pokemonRoster);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -28,59 +27,56 @@ class PokemonTeam extends StatelessWidget {
         centerTitle: true,
       ),
       body: Center(
-        child: Container(
-          width: 500,
-          height: 500,
-          color: Colors.red,
-          child: ListView.builder(
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              if (state == BlocStatus.addedToTeam) {
-                return OutlinedButton(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 500,
+              height: 500,
+              color: Colors.red,
+              child: ListView.builder(
+                itemCount: pokemonRoster.length,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    width: 500,
+                    height: 100,
+                    child: ColoredBox(
+                      color: retrievePokemonType(pokemonRoster[index].type[0])!,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Image.network(pokemonRoster[index].image),
+                          Text(
+                            pokemonRoster[index].name,
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
                   onPressed: () => {
                     showDialog(
                       context: context,
                       builder: (context) => PokemonSelection(),
                     )
                   },
-                  child: SizedBox(
-                    width: 500,
-                    height: 100,
-                    child: ColoredBox(
-                      color: retrievePokemonType(pokemon.type[0])!,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Image.network(pokemon.image),
-                          Text(
-                            pokemon.name,
-                            style: TextStyle(color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              }
-              return OutlinedButton(
-                onPressed: () => {
-                  showDialog(
-                    context: context,
-                    builder: (context) => PokemonSelection(),
-                  )
-                },
-                child: SizedBox(
-                  width: 100,
-                  height: 100,
-                  child: Text(
-                    'Select a Pokemon',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(color: Colors.black),
-                  ),
+                  icon: Icon(Icons.add),
                 ),
-              );
-            },
-          ),
+                TextButton(
+                  onPressed: () => {},
+                  child: Text('Clear Selection'),
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );
