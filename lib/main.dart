@@ -26,7 +26,7 @@ class Pokedex extends StatelessWidget {
               title: Text(
                 'Pokedex',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
               ),
               backgroundColor: Colors.red,
@@ -40,7 +40,7 @@ class Pokedex extends StatelessWidget {
                 child: Text(
                   'Gotta Catch ’Em All',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 20,
                   ),
                 ),

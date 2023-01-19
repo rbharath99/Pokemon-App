@@ -29,7 +29,11 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
   Future<void> _fetchPokemonData(
       FetchPokemonData event, Emitter<PokemonState> emit) async {
     try {
-      emit(state.copyWith(status: BlocStatus.loading));
+      emit(
+        state.copyWith(
+          status: BlocStatus.loading,
+        ),
+      );
       final pokemonList = await _pokemonRepository.fetchPokemonData();
       emit(
         state.copyWith(
@@ -39,7 +43,11 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
         ),
       );
     } catch (e) {
-      emit(state.copyWith(status: BlocStatus.error));
+      emit(
+        state.copyWith(
+          status: BlocStatus.error,
+        ),
+      );
     }
   }
 
@@ -93,7 +101,11 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
   void _addPokemon(AddPokemon event, Emitter<PokemonState> emit) {
     final selectedPokemon = event.pokemon;
     if (List.from(state.myPokemons).contains(selectedPokemon)) {
-      emit(state.copyWith(status: BlocStatus.pokemonExisted));
+      emit(
+        state.copyWith(
+          status: BlocStatus.pokemonExisted,
+        ),
+      );
     } else {
       final List<Pokemon> pokemonList = List.from(state.myPokemons)
         ..add(selectedPokemon);
@@ -120,7 +132,7 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     );
   }
 
-  Future<void> _setPokemon(SetPokemon event, Emitter<PokemonState> emit) async {
+  void _setPokemon(SetPokemon event, Emitter<PokemonState> emit) {
     final selectedPokemon = event.pokemon;
     List<Pokemon> pokemonRoster = List.from(state.pokemonRoster)
       ..add(selectedPokemon);
@@ -135,19 +147,25 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     }
   }
 
-  Future<void> _clearPokemonRoster(
-      ClearPokemonRoster event, Emitter<PokemonState> emit) async {
+  void _clearPokemonRoster(
+      ClearPokemonRoster event, Emitter<PokemonState> emit) {
     List<Pokemon> pokemonRoster = [];
-    emit(state.copyWith(pokemonRoster: pokemonRoster));
+    emit(
+      state.copyWith(
+        pokemonRoster: pokemonRoster,
+      ),
+    );
   }
 
-  Future<void> _removePokemonFromRoster(
-      RemovePokemonFromRoster event, Emitter<PokemonState> emit) async {
+  void _removePokemonFromRoster(
+      RemovePokemonFromRoster event, Emitter<PokemonState> emit) {
     final pokemonToRemove = event.pokemon;
     List<Pokemon> pokemonRoster = List.from(state.pokemonRoster)
       ..remove(pokemonToRemove);
     emit(
-      state.copyWith(pokemonRoster: pokemonRoster),
+      state.copyWith(
+        pokemonRoster: pokemonRoster,
+      ),
     );
   }
 }

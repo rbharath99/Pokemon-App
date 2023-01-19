@@ -77,19 +77,31 @@ class _PokemonListViewState extends State<PokemonListView> {
                       BlocSelector<PokemonBloc, PokemonState, String>(
                         selector: (state) => state.selectedOption,
                         builder: (context, selectedOption) {
-                          return DropdownButton<String>(
-                            value: selectedOption,
-                            icon: const Icon(Icons.keyboard_arrow_down),
-                            items: state.filterOptions.map((String option) {
-                              return DropdownMenuItem(
-                                value: option,
-                                child: Text(option),
-                              );
-                            }).toList(),
-                            onChanged: (String? newValue) {
-                              bloc.add(FilterPokemon(filterOption: newValue!));
-                              searchPokemonController.clear();
-                            },
+                          return DecoratedBox(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors.red,
+                              border: Border.all(style: BorderStyle.none),
+                            ),
+                            child: DropdownButton<String>(
+                              iconEnabledColor: Colors.white,
+                              dropdownColor: Colors.red,
+                              underline: Container(),
+                              style: TextStyle(color: Colors.white),
+                              value: selectedOption,
+                              icon: const Icon(Icons.keyboard_arrow_down),
+                              items: state.filterOptions.map((String option) {
+                                return DropdownMenuItem(
+                                  value: option,
+                                  child: Text(option),
+                                );
+                              }).toList(),
+                              onChanged: (String? newValue) {
+                                bloc.add(
+                                    FilterPokemon(filterOption: newValue!));
+                                searchPokemonController.clear();
+                              },
+                            ),
                           );
                         },
                       ),

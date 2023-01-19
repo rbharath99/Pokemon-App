@@ -59,17 +59,39 @@ class PokemonCard extends StatelessWidget {
           Image.network(pokemon.image),
           Spacer(),
           isFound
-              ? IconButton(
-                  icon: Icon(Icons.remove),
-                  onPressed: () => context
-                      .read<PokemonBloc>()
-                      .add(RemovePokemon(pokemon: pokemon)),
+              ? CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Colors.white,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.remove,
+                      color: retrievePokemonType(
+                        pokemon.type[0],
+                      ),
+                    ),
+                    onPressed: () => context.read<PokemonBloc>().add(
+                          RemovePokemon(
+                            pokemon: pokemon,
+                          ),
+                        ),
+                  ),
                 )
-              : IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: () => context
-                      .read<PokemonBloc>()
-                      .add(AddPokemon(pokemon: pokemon)),
+              : CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Colors.white,
+                  child: IconButton(
+                    icon: Icon(
+                      Icons.add,
+                      color: retrievePokemonType(
+                        pokemon.type[0],
+                      ),
+                    ),
+                    onPressed: () => context.read<PokemonBloc>().add(
+                          AddPokemon(
+                            pokemon: pokemon,
+                          ),
+                        ),
+                  ),
                 ),
         ],
       ),

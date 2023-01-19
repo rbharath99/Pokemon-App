@@ -42,7 +42,6 @@ class PokemonSelection extends StatelessWidget {
                                 pokemon: myPokemonList[index],
                               ),
                             ),
-                        Navigator.pop(context),
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

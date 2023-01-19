@@ -20,7 +20,7 @@ class PokemonTeam extends StatelessWidget {
         title: Text(
           'Build a Team',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         backgroundColor: Colors.red,
@@ -41,7 +41,7 @@ class PokemonTeam extends StatelessWidget {
                   return SizedBox(
                     width: 500,
                     height: 100,
-                    child: ColoredBox(
+                    child: Container(
                       color: retrievePokemonType(pokemonRoster[index].type[0])!,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -51,15 +51,24 @@ class PokemonTeam extends StatelessWidget {
                             pokemonRoster[index].name,
                             style: TextStyle(color: Colors.black),
                           ),
-                          IconButton(
-                            onPressed: () => {
-                              context.read<PokemonBloc>().add(
-                                    RemovePokemonFromRoster(
-                                      pokemon: pokemonRoster[index],
-                                    ),
-                                  )
-                            },
-                            icon: Icon(Icons.remove),
+                          CircleAvatar(
+                            radius: 20,
+                            backgroundColor: Colors.white,
+                            child: IconButton(
+                              onPressed: () => {
+                                context.read<PokemonBloc>().add(
+                                      RemovePokemonFromRoster(
+                                        pokemon: pokemonRoster[index],
+                                      ),
+                                    )
+                              },
+                              icon: Icon(
+                                Icons.remove,
+                                color: retrievePokemonType(
+                                  pokemonRoster[index].type[0],
+                                ),
+                              ),
+                            ),
                           ),
                         ],
                       ),
@@ -72,6 +81,7 @@ class PokemonTeam extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 IconButton(
+                  color: Colors.red,
                   onPressed: () => {
                     showDialog(
                       context: context,
@@ -81,12 +91,21 @@ class PokemonTeam extends StatelessWidget {
                   icon: Icon(Icons.add),
                 ),
                 TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100),
+                    ),
+                  ),
                   onPressed: () => {
                     context.read<PokemonBloc>().add(
                           ClearPokemonRoster(),
                         ),
                   },
-                  child: Text('Clear Selection'),
+                  child: Text(
+                    'Clear Selection',
+                    style: TextStyle(color: Colors.white),
+                  ),
                 ),
               ],
             )
