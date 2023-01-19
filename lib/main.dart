@@ -11,38 +11,39 @@ class Pokedex extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Pokédex',
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text(
-            'Pokedex',
-            style: TextStyle(
-              color: Colors.black,
+    return RepositoryProvider(
+      create: (_) => PokemonRepository(),
+      child: BlocProvider(
+        create: (BuildContext context) => PokemonBloc(
+          pokemonRepository: context.read<PokemonRepository>(),
+        ),
+        child: MaterialApp(
+          title: 'Pokédex',
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              title: Text(
+                'Pokedex',
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              backgroundColor: Colors.red,
+              centerTitle: true,
             ),
-          ),
-          backgroundColor: Colors.red,
-          centerTitle: true,
-        ),
-        body: RepositoryProvider(
-          create: (_) => PokemonRepository(),
-          child: BlocProvider(
-            create: (BuildContext context) => PokemonBloc(
-                pokemonRepository: context.read<PokemonRepository>()),
-            child: PokemonListView(),
-          ),
-        ),
-        bottomNavigationBar: Container(
-          height: 56,
-          color: Colors.red,
-          child: Center(
-            child: Text(
-              'Gotta Catch ’Em All',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
+            body: PokemonListView(),
+            bottomNavigationBar: Container(
+              height: 56,
+              color: Colors.red,
+              child: Center(
+                child: Text(
+                  'Gotta Catch ’Em All',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                  ),
+                ),
               ),
             ),
           ),
