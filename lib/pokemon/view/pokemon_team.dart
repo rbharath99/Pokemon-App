@@ -71,7 +71,11 @@ class PokemonTeam extends StatelessWidget {
                   icon: Icon(Icons.add),
                 ),
                 TextButton(
-                  onPressed: () => {},
+                  onPressed: () => {
+                    context.read<PokemonBloc>().add(
+                          ClearPokemonRoster(),
+                        ),
+                  },
                   child: Text('Clear Selection'),
                 ),
               ],

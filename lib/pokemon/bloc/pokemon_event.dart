@@ -53,3 +53,7 @@ class SetPokemon extends PokemonEvent {
   @override
   List<Object?> get props => [pokemon];
 }
+
+class ClearPokemonRoster extends PokemonEvent {
+  const ClearPokemonRoster();
+}
