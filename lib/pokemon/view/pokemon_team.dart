@@ -20,7 +20,7 @@ class PokemonTeam extends StatelessWidget {
         title: Text(
           'Build a Team',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         backgroundColor: Colors.red,
@@ -91,13 +91,12 @@ class PokemonTeam extends StatelessWidget {
                   icon: Icon(Icons.add),
                 ),
                 TextButton(
-                  style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(100),
-                      side: BorderSide(color: Colors.red),
                     ),
-                  )),
+                  ),
                   onPressed: () => {
                     context.read<PokemonBloc>().add(
                           ClearPokemonRoster(),
@@ -105,7 +104,7 @@ class PokemonTeam extends StatelessWidget {
                   },
                   child: Text(
                     'Clear Selection',
-                    style: TextStyle(color: Colors.red),
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
               ],
