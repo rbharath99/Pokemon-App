@@ -51,6 +51,16 @@ class PokemonTeam extends StatelessWidget {
                             pokemonRoster[index].name,
                             style: TextStyle(color: Colors.black),
                           ),
+                          IconButton(
+                            onPressed: () => {
+                              context.read<PokemonBloc>().add(
+                                    RemovePokemonFromRoster(
+                                      pokemon: pokemonRoster[index],
+                                    ),
+                                  )
+                            },
+                            icon: Icon(Icons.remove),
+                          ),
                         ],
                       ),
                     ),

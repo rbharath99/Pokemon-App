@@ -57,3 +57,12 @@ class SetPokemon extends PokemonEvent {
 class ClearPokemonRoster extends PokemonEvent {
   const ClearPokemonRoster();
 }
+
+class RemovePokemonFromRoster extends PokemonEvent {
+  final Pokemon pokemon;
+
+  const RemovePokemonFromRoster({required this.pokemon});
+
+  @override
+  List<Object?> get props => [pokemon];
+}
