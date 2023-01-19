@@ -8,6 +8,7 @@ class PokemonState extends Equatable {
     this.filteredPokemons = const [],
     this.filterOptions = const ['none', 'height', 'weight'],
     this.selectedOption = 'none',
+    this.pokemon = Pokemon.empty,
   });
 
   final BlocStatus status;
@@ -16,6 +17,7 @@ class PokemonState extends Equatable {
   final List<Pokemon> filteredPokemons;
   final List<String> filterOptions;
   final String selectedOption;
+  final Pokemon pokemon;
 
   PokemonState copyWith({
     BlocStatus? status,
@@ -24,6 +26,7 @@ class PokemonState extends Equatable {
     List<Pokemon>? filteredPokemons,
     List<String>? filterOptions,
     String? selectedOption,
+    Pokemon? pokemon,
   }) {
     return PokemonState(
       status: status ?? this.status,
@@ -32,6 +35,7 @@ class PokemonState extends Equatable {
       filteredPokemons: filteredPokemons ?? this.filteredPokemons,
       filterOptions: filterOptions ?? this.filterOptions,
       selectedOption: selectedOption ?? this.selectedOption,
+      pokemon: pokemon ?? this.pokemon,
     );
   }
 
@@ -42,6 +46,7 @@ class PokemonState extends Equatable {
         myPokemons,
         filteredPokemons,
         filterOptions,
-        selectedOption
+        selectedOption,
+        pokemon,
       ];
 }

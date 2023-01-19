@@ -36,7 +36,14 @@ class PokemonSelection extends StatelessWidget {
                           ),
                         ),
                       ),
-                      onPressed: () => {},
+                      onPressed: () => {
+                        context.read<PokemonBloc>().add(
+                              SetPokemon(
+                                pokemon: myPokemonList[index],
+                              ),
+                            ),
+                        Navigator.pop(context),
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
