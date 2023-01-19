@@ -21,6 +21,7 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     on<RemovePokemon>(_removePokemon);
     on<SetPokemon>(_setPokemon);
     on<ClearPokemonRoster>(_clearPokemonRoster);
+    on<RemovePokemonFromRoster>(_removePokemonFromRoster);
   }
 
   final PokemonRepository _pokemonRepository;
@@ -134,8 +135,19 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     }
   }
 
-  Future<void> _clearPokemonRoster(ClearPokemonRoster event, Emitter<PokemonState> emit) async {
+  Future<void> _clearPokemonRoster(
+      ClearPokemonRoster event, Emitter<PokemonState> emit) async {
     List<Pokemon> pokemonRoster = [];
     emit(state.copyWith(pokemonRoster: pokemonRoster));
+  }
+
+  Future<void> _removePokemonFromRoster(
+      RemovePokemonFromRoster event, Emitter<PokemonState> emit) async {
+    final pokemonToRemove = event.pokemon;
+    List<Pokemon> pokemonRoster = List.from(state.pokemonRoster)
+      ..remove(pokemonToRemove);
+    emit(
+      state.copyWith(pokemonRoster: pokemonRoster),
+    );
   }
 }
