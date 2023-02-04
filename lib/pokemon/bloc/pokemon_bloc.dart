@@ -194,8 +194,10 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     UploadPokemon event,
     Emitter<PokemonState> emit,
   ) async {
-    final List<String> types = event.type.split(' ');
-    final List<String> weaknesses = event.weaknesses.split(' ');
+    final List<String> types =
+        event.type.replaceAll(RegExp(r'[^\w]\s+'), ' ').split(' ');
+    final List<String> weaknesses =
+        event.weaknesses.replaceAll(RegExp(r'[^\w]\s+'), ' ').split(' ');
     final Map<String, dynamic> json = {
       'number': event.number,
       'name': event.name,
@@ -206,6 +208,8 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
       'weaknesses': weaknesses,
     };
     final newPokemon = Pokemon.fromJson(json);
+    print(newPokemon.type);
+    print(newPokemon.weaknesses);
     List<Pokemon> discoveredPokemons = List.from(state.newPokemons)
       ..add(newPokemon);
     emit(state.copyWith(newPokemons: discoveredPokemons));

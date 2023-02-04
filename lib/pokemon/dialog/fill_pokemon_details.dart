@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
 
@@ -44,12 +45,22 @@ class _FillPokemonDetailsState extends State<FillPokemonDetails> {
               decoration: InputDecoration(
                 hintText: 'enter pokemon ID',
               ),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(
+                  RegExp(r'[0-9]'),
+                ),
+              ],
             ),
             TextField(
               controller: _nameController,
               decoration: InputDecoration(
                 hintText: 'enter pokemon name',
               ),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(
+                  RegExp('[a-zA-Z]'),
+                ),
+              ],
             ),
             TextField(
               controller: _imageController,
@@ -62,12 +73,22 @@ class _FillPokemonDetailsState extends State<FillPokemonDetails> {
               decoration: InputDecoration(
                 hintText: 'enter pokemon height',
               ),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(
+                  RegExp(r'^(\d+)?\.?\d{0,2}'),
+                ),
+              ],
             ),
             TextField(
               controller: _weightController,
               decoration: InputDecoration(
                 hintText: 'enter pokemon weight',
               ),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(
+                  RegExp(r'^(\d+)?\.?\d{0,2}'),
+                ),
+              ],
             ),
             TextField(
               controller: _typeController,
@@ -91,7 +112,7 @@ class _FillPokemonDetailsState extends State<FillPokemonDetails> {
                         height: _heightController.text,
                         weight: _weightController.text,
                         type: _typeController.text,
-                        weaknesses: _typeController.text,
+                        weaknesses: _weaknessesController.text,
                       ),
                     )
               },
