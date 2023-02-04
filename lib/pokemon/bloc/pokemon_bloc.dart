@@ -22,12 +22,15 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     on<SetPokemon>(_setPokemon);
     on<ClearPokemonRoster>(_clearPokemonRoster);
     on<RemovePokemonFromRoster>(_removePokemonFromRoster);
+    on<UploadPokemon>(_uploadPokemon);
   }
 
   final PokemonRepository _pokemonRepository;
 
   Future<void> _fetchPokemonData(
-      FetchPokemonData event, Emitter<PokemonState> emit) async {
+    FetchPokemonData event,
+    Emitter<PokemonState> emit,
+  ) async {
     try {
       emit(
         state.copyWith(
@@ -51,7 +54,10 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     }
   }
 
-  void _searchPokemon(SearchPokemon event, Emitter<PokemonState> emit) {
+  void _searchPokemon(
+    SearchPokemon event,
+    Emitter<PokemonState> emit,
+  ) {
     final parsedInput = event.searchedName.trim().toLowerCase();
     emit(state.copyWith(
       filteredPokemons: state.pokemons
@@ -62,7 +68,9 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
   }
 
   Future<void> _filterPokemon(
-      FilterPokemon event, Emitter<PokemonState> emit) async {
+    FilterPokemon event,
+    Emitter<PokemonState> emit,
+  ) async {
     final option = event.filterOption;
     switch (option) {
       case 'none':
@@ -98,7 +106,10 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     }
   }
 
-  void _addPokemon(AddPokemon event, Emitter<PokemonState> emit) {
+  void _addPokemon(
+    AddPokemon event,
+    Emitter<PokemonState> emit,
+  ) {
     final selectedPokemon = event.pokemon;
     if (List.from(state.myPokemons).contains(selectedPokemon)) {
       emit(
@@ -119,7 +130,10 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     }
   }
 
-  void _removePokemon(RemovePokemon event, Emitter<PokemonState> emit) {
+  void _removePokemon(
+    RemovePokemon event,
+    Emitter<PokemonState> emit,
+  ) {
     final selectedPokemon = event.pokemon;
     final List<Pokemon> pokemonList = List.from(state.myPokemons)
       ..remove(selectedPokemon);
@@ -132,7 +146,10 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
     );
   }
 
-  void _setPokemon(SetPokemon event, Emitter<PokemonState> emit) {
+  Future<void> _setPokemon(
+    SetPokemon event,
+    Emitter<PokemonState> emit,
+  ) async {
     final selectedPokemon = event.pokemon;
     List<Pokemon> pokemonRoster = List.from(state.pokemonRoster)
       ..add(selectedPokemon);
@@ -148,7 +165,9 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
   }
 
   void _clearPokemonRoster(
-      ClearPokemonRoster event, Emitter<PokemonState> emit) {
+    ClearPokemonRoster event,
+    Emitter<PokemonState> emit,
+  ) {
     List<Pokemon> pokemonRoster = [];
     emit(
       state.copyWith(
@@ -158,7 +177,9 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
   }
 
   void _removePokemonFromRoster(
-      RemovePokemonFromRoster event, Emitter<PokemonState> emit) {
+    RemovePokemonFromRoster event,
+    Emitter<PokemonState> emit,
+  ) {
     final pokemonToRemove = event.pokemon;
     List<Pokemon> pokemonRoster = List.from(state.pokemonRoster)
       ..remove(pokemonToRemove);
@@ -167,5 +188,26 @@ class PokemonBloc extends Bloc<PokemonEvent, PokemonState> {
         pokemonRoster: pokemonRoster,
       ),
     );
+  }
+
+  Future<void> _uploadPokemon(
+    UploadPokemon event,
+    Emitter<PokemonState> emit,
+  ) async {
+    final List<String> types = event.type.split(' ');
+    final List<String> weaknesses = event.weaknesses.split(' ');
+    final Map<String, dynamic> json = {
+      'number': event.number,
+      'name': event.name,
+      'image': event.image,
+      'height': event.height,
+      'weight': event.weight,
+      'type': types,
+      'weaknesses': weaknesses,
+    };
+    final newPokemon = Pokemon.fromJson(json);
+    List<Pokemon> discoveredPokemons = List.from(state.newPokemons)
+      ..add(newPokemon);
+    emit(state.copyWith(newPokemons: discoveredPokemons));
   }
 }

@@ -66,3 +66,27 @@ class RemovePokemonFromRoster extends PokemonEvent {
   @override
   List<Object?> get props => [pokemon];
 }
+
+class UploadPokemon extends PokemonEvent {
+  final String number;
+  final String name;
+  final String image;
+  final String height;
+  final String weight;
+  final String type;
+  final String weaknesses;
+
+  const UploadPokemon({
+    required this.number,
+    required this.name,
+    required this.image,
+    required this.height,
+    required this.weight,
+    required this.type,
+    required this.weaknesses,
+  });
+
+  @override
+  List<Object?> get props =>
+      [number, name, image, height, weight, type, weaknesses];
+}
