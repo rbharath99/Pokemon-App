@@ -44,9 +44,9 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
     Emitter<PokemonLeagueState> emit,
   ) async {
     final name = event.name;
-    final participants = event.participants;
-    final entryFee = event.entryFee;
-    final prizeFee = event.prizeFee;
+    final participants = int.parse(event.participants);
+    final entryFee = int.parse(event.entryFee);
+    final prizeFee = int.parse(event.prizeFee);
     final league = League(
       name: name,
       participants: participants,
@@ -54,6 +54,6 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
       prizeFee: prizeFee,
       roomId: '1',
     );
-    _pokemonLeagueRepository.createLeague(league);
+    await _pokemonLeagueRepository.createLeague(league);
   }
 }

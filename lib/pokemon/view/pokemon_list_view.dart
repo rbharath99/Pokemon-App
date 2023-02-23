@@ -171,13 +171,7 @@ class _PokemonListViewState extends State<PokemonListView> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => BlocProvider(
-                                create: (context) => PokemonLeagueBloc(
-                                  pokemonLeagueRepository:
-                                      context.read<PokemonLeagueRepository>(),
-                                ),
-                                child: PokemonLeague(),
-                              ),
+                              builder: (context) => PokemonLeague(),
                             ),
                           );
                         },

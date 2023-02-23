@@ -11,9 +11,9 @@ class FetchLeagueInfo extends PokemonLeagueEvent {}
 
 class CreateLeague extends PokemonLeagueEvent {
   final String name;
-  final int participants;
-  final int entryFee;
-  final int prizeFee;
+  final String participants;
+  final String entryFee;
+  final String prizeFee;
 
   const CreateLeague({
     required this.name,

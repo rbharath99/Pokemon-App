@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokedex/pokemon_league/bloc/pokemon_league_bloc.dart';
 
 class CreateLeagueDialog extends StatelessWidget {
   const CreateLeagueDialog({Key? key}) : super(key: key);
@@ -85,7 +87,16 @@ class CreateLeagueDialog extends StatelessWidget {
                   'Create League!',
                   style: TextStyle(color: Colors.white),
                 ),
-                onPressed: () => {},
+                onPressed: () => {
+                  BlocProvider.of<PokemonLeagueBloc>(context).add(
+                    CreateLeague(
+                      name: nameController.text,
+                      participants: participantsController.text,
+                      entryFee: entryFeeController.text,
+                      prizeFee: prizeFeeController.text,
+                    ),
+                  )
+                },
               )
             ],
           ),
