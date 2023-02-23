@@ -15,13 +15,45 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
         super(const PokemonLeagueState()) {
     on<FetchLeagueInfo>(_onFetchLeagueInfo);
     on<CreateLeague>(_onCreateLeague);
+
+    add(FetchLeagueInfo());
   }
 
   final PokemonLeagueRepository _pokemonLeagueRepository;
 
   Future<void> _onFetchLeagueInfo(
-      FetchLeagueInfo event, Emitter<PokemonLeagueState> emit) async {}
+    FetchLeagueInfo event,
+    Emitter<PokemonLeagueState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        status: BlocStatus.loading,
+      ),
+    );
+    final pokemonLeagues = await _pokemonLeagueRepository.fetchLeagues();
+    emit(
+      state.copyWith(
+        pokemonLeagues: pokemonLeagues,
+        status: BlocStatus.success,
+      ),
+    );
+  }
 
   Future<void> _onCreateLeague(
-      CreateLeague event, Emitter<PokemonLeagueState> emit) async {}
+    CreateLeague event,
+    Emitter<PokemonLeagueState> emit,
+  ) async {
+    final name = event.name;
+    final participants = event.participants;
+    final entryFee = event.entryFee;
+    final prizeFee = event.prizeFee;
+    final league = League(
+      name: name,
+      participants: participants,
+      entryFee: entryFee,
+      prizeFee: prizeFee,
+      roomId: '1',
+    );
+    _pokemonLeagueRepository.createLeague(league);
+  }
 }

@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/pokemon/view/my_pokemon_view.dart';
 import 'package:pokedex/pokemon/view/pokemon_card.dart';
 import 'package:pokedex/pokemon/view/pokemon_team.dart';
+import 'package:pokedex/pokemon_league/bloc/pokemon_league_bloc.dart';
 import 'package:pokedex/pokemon_league/view/pokemon_league_view.dart';
+import 'package:pokedex/repository/pokemon_league_repository.dart';
 import 'package:pokedex/utils/status_widgets/pokemon_error.dart';
 import 'package:pokedex/utils/status_widgets/loading_bar.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
@@ -169,7 +171,13 @@ class _PokemonListViewState extends State<PokemonListView> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => PokemonLeague()
+                              builder: (context) => BlocProvider(
+                                create: (context) => PokemonLeagueBloc(
+                                  pokemonLeagueRepository:
+                                      context.read<PokemonLeagueRepository>(),
+                                ),
+                                child: PokemonLeague(),
+                              ),
                             ),
                           );
                         },

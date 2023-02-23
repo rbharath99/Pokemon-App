@@ -11,67 +11,84 @@ class CreateLeagueDialog extends StatelessWidget {
     final prizeFeeController = TextEditingController();
     return Dialog(
       child: SizedBox(
-        width: 500,
-        height: 500,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Name'),
-                SizedBox(
-                  width: 300,
-                  child: TextField(
-                    decoration: InputDecoration(),
-                    controller: nameController,
+        width: 350,
+        height: 450,
+        child: Padding(
+          padding: const EdgeInsets.all(
+            10,
+          ),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Name'),
+                  SizedBox(
+                    width: 200,
+                    child: TextField(
+                      decoration: InputDecoration(),
+                      controller: nameController,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Participants'),
+                  SizedBox(
+                    width: 200,
+                    child: TextField(
+                      decoration: InputDecoration(),
+                      controller: participantsController,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Entry Fee'),
+                  SizedBox(
+                    width: 200,
+                    child: TextField(
+                      decoration: InputDecoration(),
+                      controller: entryFeeController,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Prize Fee'),
+                  SizedBox(
+                    width: 200,
+                    child: TextField(
+                      decoration: InputDecoration(),
+                      controller: prizeFeeController,
+                    ),
+                  ),
+                ],
+              ),
+              Spacer(),
+              TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(20),
+                    ),
                   ),
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Participants'),
-                SizedBox(
-                  width: 300,
-                  child: TextField(
-                    decoration: InputDecoration(),
-                    controller: participantsController,
-                  ),
+                child: Text(
+                  'Create League!',
+                  style: TextStyle(color: Colors.white),
                 ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Entry Fee'),
-                SizedBox(
-                  width: 300,
-                  child: TextField(
-                    decoration: InputDecoration(),
-                    controller: entryFeeController,
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Prize Fee'),
-                SizedBox(
-                  width: 300,
-                  child: TextField(
-                    decoration: InputDecoration(),
-                    controller: prizeFeeController,
-                  ),
-                ),
-              ],
-            ),
-            TextButton(
-              child: Text('Create League!'),
-              onPressed: () => {},
-            )
-          ],
+                onPressed: () => {},
+              )
+            ],
+          ),
         ),
       ),
     );
