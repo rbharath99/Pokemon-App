@@ -11,6 +11,7 @@ League _$LeagueFromJson(Map<String, dynamic> json) => League(
       participants: json['participants'] as int,
       entryFee: json['entryFee'] as int,
       prizeFee: json['prizeFee'] as int,
+      roomId: json['roomId'] as String,
     );
 
 Map<String, dynamic> _$LeagueToJson(League instance) => <String, dynamic>{
@@ -18,4 +19,5 @@ Map<String, dynamic> _$LeagueToJson(League instance) => <String, dynamic>{
       'participants': instance.participants,
       'entryFee': instance.entryFee,
       'prizeFee': instance.prizeFee,
+      'roomId': instance.roomId,
     };
