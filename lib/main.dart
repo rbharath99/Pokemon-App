@@ -1,7 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
 import 'package:pokedex/pokemon/view/pokemon_list_view.dart';
+import 'package:pokedex/repository/pokemon_league_repository.dart';
 import 'package:pokedex/repository/pokemon_repository.dart';
 
 void main() => runApp(Pokedex());
@@ -11,8 +13,17 @@ class Pokedex extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (_) => PokemonRepository(),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (_) => PokemonRepository(),
+        ),
+        RepositoryProvider(
+          create: (_) => PokemonLeagueRepository(
+            fireBaseFireStore: FirebaseFirestore.instance,
+          ),
+        ),
+      ],
       child: BlocProvider(
         create: (BuildContext context) => PokemonBloc(
           pokemonRepository: context.read<PokemonRepository>(),

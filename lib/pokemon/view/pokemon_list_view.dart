@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/pokemon/view/my_pokemon_view.dart';
 import 'package:pokedex/pokemon/view/pokemon_card.dart';
 import 'package:pokedex/pokemon/view/pokemon_team.dart';
+import 'package:pokedex/pokemon_league/view/pokemon_league_view.dart';
 import 'package:pokedex/utils/status_widgets/pokemon_error.dart';
 import 'package:pokedex/utils/status_widgets/loading_bar.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
@@ -152,6 +153,28 @@ class _PokemonListViewState extends State<PokemonListView> {
                         },
                         child: Text(
                           'Pokemon Team',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.red,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PokemonLeague()
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Pokemon League',
                           style: TextStyle(color: Colors.white),
                         ),
                       ),

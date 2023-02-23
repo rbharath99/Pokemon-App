@@ -8,3 +8,10 @@ abstract class PokemonLeagueState extends Equatable {
 }
 
 class PokemonLeagueInitial extends PokemonLeagueState {}
+
+class PokemonLeagueFailed extends PokemonLeagueState {}
+
+class PokemonLeagueLoading extends PokemonLeagueState {}
+
+class PokemonLeagueSuccess extends PokemonLeagueState {}
+

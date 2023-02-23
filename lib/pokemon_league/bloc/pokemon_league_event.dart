@@ -6,3 +6,7 @@ abstract class PokemonLeagueEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class FetchLeagueInfo extends PokemonLeagueEvent {}
+
+class CreateLeague extends PokemonLeagueEvent {}
