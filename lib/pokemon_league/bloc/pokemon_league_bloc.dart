@@ -55,5 +55,6 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
       roomId: '1',
     );
     await _pokemonLeagueRepository.createLeague(league);
+    add(FetchLeagueInfo());
   }
 }

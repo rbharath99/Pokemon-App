@@ -95,7 +95,8 @@ class CreateLeagueDialog extends StatelessWidget {
                       entryFee: entryFeeController.text,
                       prizeFee: prizeFeeController.text,
                     ),
-                  )
+                  ),
+                  Navigator.pop(context),
                 },
               )
             ],
