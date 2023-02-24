@@ -5,21 +5,25 @@ class PokemonLeagueState extends Equatable {
     this.status = BlocStatus.initial,
     this.pokemonLeague = League.empty,
     this.pokemonLeagues = const [],
+    this.pokemonFilterLeagues = const [],
   });
 
   final BlocStatus status;
   final League pokemonLeague;
   final List<League> pokemonLeagues;
+  final List<League> pokemonFilterLeagues;
 
   PokemonLeagueState copyWith({
     BlocStatus? status,
     League? pokemonLeague,
     List<League>? pokemonLeagues,
+    List<League>? pokemonFilterLeagues,
   }) {
     return PokemonLeagueState(
       status: status ?? this.status,
       pokemonLeague: pokemonLeague ?? this.pokemonLeague,
       pokemonLeagues: pokemonLeagues ?? this.pokemonLeagues,
+      pokemonFilterLeagues: pokemonFilterLeagues ?? this.pokemonFilterLeagues,
     );
   }
 
@@ -28,5 +32,6 @@ class PokemonLeagueState extends Equatable {
         status,
         pokemonLeague,
         pokemonLeagues,
+        pokemonFilterLeagues,
       ];
 }

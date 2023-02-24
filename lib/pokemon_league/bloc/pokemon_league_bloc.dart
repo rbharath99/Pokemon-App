@@ -16,6 +16,7 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
         super(const PokemonLeagueState()) {
     on<FetchLeagueInfo>(_onFetchLeagueInfo);
     on<CreateLeague>(_onCreateLeague);
+    on<SearchLeague>(_onSearchLeague);
 
     add(FetchLeagueInfo());
   }
@@ -35,6 +36,7 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
     emit(
       state.copyWith(
         pokemonLeagues: pokemonLeagues,
+        pokemonFilterLeagues: pokemonLeagues,
         status: BlocStatus.success,
       ),
     );
@@ -58,6 +60,23 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
     );
     await _pokemonLeagueRepository.createLeague(league);
     add(FetchLeagueInfo());
+  }
+
+  Future<void> _onSearchLeague(
+      SearchLeague event, Emitter<PokemonLeagueState> emit) async {
+    final input = event.input.trim().toLowerCase();
+    emit(
+      state.copyWith(
+        pokemonFilterLeagues: state.pokemonLeagues
+            .where(
+              (league) => league.name.toLowerCase().contains(
+                    input.toLowerCase(),
+                  ),
+            )
+            .toList(),
+        status: BlocStatus.success,
+      ),
+    );
   }
 
   String generateRandomRoomId(int length) {
