@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:pokedex/pokemon_league/models/league.dart';
 import 'package:pokedex/repository/pokemon_league_repository.dart';
 import 'package:pokedex/utils/bloc_status.dart';
+import 'dart:math';
 
 part 'pokemon_league_event.dart';
 part 'pokemon_league_state.dart';
@@ -47,14 +48,32 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
     final participants = int.parse(event.participants);
     final entryFee = int.parse(event.entryFee);
     final prizeFee = int.parse(event.prizeFee);
+    final roomId = generateRandomRoomId(10);
     final league = League(
       name: name,
       participants: participants,
       entryFee: entryFee,
       prizeFee: prizeFee,
-      roomId: '1',
+      roomId: roomId,
     );
     await _pokemonLeagueRepository.createLeague(league);
     add(FetchLeagueInfo());
+  }
+
+  String generateRandomRoomId(int length) {
+    const predefinedCharacters =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    final random = Random();
+    final generatedRoomId = String.fromCharCodes(
+      Iterable.generate(
+        length,
+        (_) => predefinedCharacters.codeUnitAt(
+          random.nextInt(
+            predefinedCharacters.length,
+          ),
+        ),
+      ),
+    );
+    return generatedRoomId;
   }
 }
