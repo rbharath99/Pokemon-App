@@ -25,3 +25,14 @@ class CreateLeague extends PokemonLeagueEvent {
   @override
   List<Object?> get props => [name, participants, entryFee, prizeFee];
 }
+
+class SearchLeague extends PokemonLeagueEvent {
+  final String input;
+
+  const SearchLeague({
+    required this.input,
+  });
+
+  @override
+  List<Object?> get props => [input];
+}
