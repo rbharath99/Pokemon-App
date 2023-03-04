@@ -17,6 +17,7 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
     on<FetchLeagueInfo>(_onFetchLeagueInfo);
     on<CreateLeague>(_onCreateLeague);
     on<SearchLeague>(_onSearchLeague);
+    on<AddRosterToLeague>(_onAddRosterToLeague);
 
     add(FetchLeagueInfo());
   }
@@ -57,6 +58,7 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
       entryFee: entryFee,
       prizeFee: prizeFee,
       roomId: roomId,
+      teamRoster: [],
     );
     await _pokemonLeagueRepository.createLeague(league);
     add(FetchLeagueInfo());
@@ -94,5 +96,12 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
       ),
     );
     return generatedRoomId;
+  }
+
+  Future<void> _onAddRosterToLeague(
+      AddRosterToLeague event, Emitter<PokemonLeagueState> emit) async {
+    final pokemonNames = event.pokemonNames;
+    final roomId = event.roomId;
+    await _pokemonLeagueRepository.addRoster(pokemonNames, roomId);
   }
 }

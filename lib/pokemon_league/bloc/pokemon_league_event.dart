@@ -36,3 +36,16 @@ class SearchLeague extends PokemonLeagueEvent {
   @override
   List<Object?> get props => [input];
 }
+
+class AddRosterToLeague extends PokemonLeagueEvent {
+  final List<String> pokemonNames;
+  final String roomId;
+
+  const AddRosterToLeague({
+    required this.pokemonNames,
+    required this.roomId,
+  });
+
+  @override
+  List<Object?> get props => [pokemonNames, roomId];
+}

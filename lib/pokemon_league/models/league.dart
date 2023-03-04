@@ -9,6 +9,7 @@ class League {
   final int entryFee;
   final int prizeFee;
   final String roomId;
+  final List<String> teamRoster;
 
   static const empty = League(
     name: '',
@@ -16,6 +17,7 @@ class League {
     entryFee: 0,
     prizeFee: 0,
     roomId: '',
+    teamRoster: [],
   );
 
   const League({
@@ -24,6 +26,7 @@ class League {
     required this.entryFee,
     required this.prizeFee,
     required this.roomId,
+    required this.teamRoster,
   });
 
   factory League.fromJson(Map<String, dynamic> json) => _$LeagueFromJson(json);
