@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/app.dart';
+import 'package:pokedex/bloc_observer.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
 import 'package:pokedex/repository/pokemon_league_repository.dart';
 import 'package:pokedex/repository/pokemon_repository.dart';
@@ -18,6 +19,7 @@ void main() async {
       projectId: 'pokemon-app-7f75b',
     ),
   );
+  Bloc.observer = PokemonAppBlocObserver();
   runApp(Pokedex());
 }
 
