@@ -40,7 +40,10 @@ class PokemonLeaguePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('My Team'),
+              Text(
+                'My Team',
+                style: TextStyle(color: Colors.red),
+              ),
               Container(
                 width: 500,
                 height: 500,
@@ -150,7 +153,10 @@ class PokemonLeaguePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text('All Teams'),
+              Text(
+                'All Teams',
+                style: TextStyle(color: Colors.red),
+              ),
               Container(
                 width: 500,
                 height: 500,
@@ -162,7 +168,9 @@ class PokemonLeaguePage extends StatelessWidget {
                       width: 500,
                       height: 100,
                       child: Row(
-                        children: teamRosters.map((e) => Text(e)).toList(),
+                        children: [
+                          Text(teamRosters[index]),
+                        ],
                       ),
                     );
                   },
