@@ -101,7 +101,10 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
   Future<void> _onAddRosterToLeague(
       AddRosterToLeague event, Emitter<PokemonLeagueState> emit) async {
     final pokemonNames = event.pokemonNames;
+    final payload = {'1' : pokemonNames};
+    List<Map<String, List<String>>> pokemonRosters = List.from(state.pokemonRosters);
+    pokemonRosters.add(payload);
     final roomId = event.roomId;
-    await _pokemonLeagueRepository.addRoster(pokemonNames, roomId);
+    await _pokemonLeagueRepository.addRoster(pokemonRosters, roomId);
   }
 }

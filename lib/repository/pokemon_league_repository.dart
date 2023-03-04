@@ -16,12 +16,12 @@ class PokemonLeagueRepository {
     return snapshot.docs.map((e) => League.fromJson(e.data())).toList();
   }
 
-  Future<void> addRoster(List<String> team, String roomId) async {
+  Future<void> addRoster(List<Map<String, List<String>>> team, String roomId) async {
     print(team);
     print(roomId);
     await _fireBaseFireStore
         .collection('League')
-        .doc('GAYPHbZ3mcK9o7kUky5W')
+        .doc('ka1FLcl4f3gznjsacAAu')
         .update(
       {
         'teamRoster': team,

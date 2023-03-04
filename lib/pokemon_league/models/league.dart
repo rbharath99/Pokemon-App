@@ -9,7 +9,7 @@ class League {
   final int entryFee;
   final int prizeFee;
   final String roomId;
-  final List<String> teamRoster;
+  final List<Map<String, List<String>>> teamRoster;
 
   static const empty = League(
     name: '',

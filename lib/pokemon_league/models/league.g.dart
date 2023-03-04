@@ -13,7 +13,10 @@ League _$LeagueFromJson(Map<String, dynamic> json) => League(
       prizeFee: json['prizeFee'] as int,
       roomId: json['roomId'] as String,
       teamRoster: (json['teamRoster'] as List<dynamic>)
-          .map((e) => e as String)
+          .map((e) => (e as Map<String, dynamic>).map(
+                (k, e) => MapEntry(
+                    k, (e as List<dynamic>).map((e) => e as String).toList()),
+              ))
           .toList(),
     );
 

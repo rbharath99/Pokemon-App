@@ -15,7 +15,7 @@ class PokemonLeaguePage extends StatelessWidget {
 
   final String leagueName;
   final String roomId;
-  final List<String> teamRosters;
+  final List<Map<String, List<String>>> teamRosters;
 
   @override
   Widget build(BuildContext context) {
@@ -168,8 +168,8 @@ class PokemonLeaguePage extends StatelessWidget {
                       width: 500,
                       height: 100,
                       child: Row(
-                        children: [
-                          Text(teamRosters[index]),
+                        children: const [
+                          Text(''),
                         ],
                       ),
                     );
