@@ -19,6 +19,7 @@ void main() async {
       projectId: 'pokemon-app-7f75b',
     ),
   );
+  Bloc.observer = PokemonAppBlocObserver();
   runApp(Pokedex());
 }
 
