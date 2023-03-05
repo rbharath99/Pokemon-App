@@ -12,6 +12,12 @@ League _$LeagueFromJson(Map<String, dynamic> json) => League(
       entryFee: json['entryFee'] as int,
       prizeFee: json['prizeFee'] as int,
       roomId: json['roomId'] as String,
+      teamRoster: (json['teamRoster'] as List<dynamic>)
+          .map((e) => (e as Map<String, dynamic>).map(
+                (k, e) => MapEntry(
+                    k, (e as List<dynamic>).map((e) => e as String).toList()),
+              ))
+          .toList(),
     );
 
 Map<String, dynamic> _$LeagueToJson(League instance) => <String, dynamic>{
@@ -20,4 +26,5 @@ Map<String, dynamic> _$LeagueToJson(League instance) => <String, dynamic>{
       'entryFee': instance.entryFee,
       'prizeFee': instance.prizeFee,
       'roomId': instance.roomId,
+      'teamRoster': instance.teamRoster,
     };

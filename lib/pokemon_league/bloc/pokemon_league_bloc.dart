@@ -17,6 +17,7 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
     on<FetchLeagueInfo>(_onFetchLeagueInfo);
     on<CreateLeague>(_onCreateLeague);
     on<SearchLeague>(_onSearchLeague);
+    on<AddRosterToLeague>(_onAddRosterToLeague);
 
     add(FetchLeagueInfo());
   }
@@ -50,13 +51,14 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
     final participants = int.parse(event.participants);
     final entryFee = int.parse(event.entryFee);
     final prizeFee = int.parse(event.prizeFee);
-    final roomId = generateRandomRoomId(10);
+    final roomId = generateRandomId(10);
     final league = League(
       name: name,
       participants: participants,
       entryFee: entryFee,
       prizeFee: prizeFee,
       roomId: roomId,
+      teamRoster: [],
     );
     await _pokemonLeagueRepository.createLeague(league);
     add(FetchLeagueInfo());
@@ -79,7 +81,19 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
     );
   }
 
-  String generateRandomRoomId(int length) {
+  Future<void> _onAddRosterToLeague(
+      AddRosterToLeague event, Emitter<PokemonLeagueState> emit) async {
+    final pokemonNames = event.pokemonNames;
+    final teamRosters = event.teamRosters;
+    final payload = {generateRandomId(5): pokemonNames};
+    List<Map<String, List<String>>> pokemonRosters = List.from(teamRosters)
+      ..add(payload);
+    final roomId = event.roomId;
+    await _pokemonLeagueRepository.addRoster(pokemonRosters, roomId);
+    emit(state.copyWith(pokemonRosters: pokemonRosters));
+  }
+
+  String generateRandomId(int length) {
     const predefinedCharacters =
         'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
     final random = Random();

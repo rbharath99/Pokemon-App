@@ -16,85 +16,86 @@ class _PokemonLeagueState extends State<PokemonLeague> {
 
   @override
   void dispose() {
-    pokemonLeagueController.dispose();  
+    pokemonLeagueController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text(
-            'League',
-            style: TextStyle(
-              color: Colors.white,
-            ),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text(
+          'League',
+          style: TextStyle(
+            color: Colors.white,
           ),
-          backgroundColor: Colors.red,
-          centerTitle: true,
         ),
-        body: BlocBuilder<PokemonLeagueBloc, PokemonLeagueState>(
-          builder: (context, state) {
-            final bloc = context.read<PokemonLeagueBloc>();
-            final pokemonLeagues = state.pokemonLeagues;
-            final pokemonFilteredLeagues = state.pokemonFilterLeagues;
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
+        backgroundColor: Colors.red,
+        centerTitle: true,
+      ),
+      body: BlocBuilder<PokemonLeagueBloc, PokemonLeagueState>(
+        builder: (context, state) {
+          final bloc = context.read<PokemonLeagueBloc>();
+          final pokemonFilteredLeagues = state.pokemonFilterLeagues;
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.red,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
                       ),
                     ),
-                    child: Text(
-                      'Create League',
-                      style: TextStyle(color: Colors.white),
+                  ),
+                  child: Text(
+                    'Create League',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () => {
+                    showDialog<void>(
+                      context: context,
+                      builder: (context) => CreateLeagueDialog(),
                     ),
-                    onPressed: () => {
-                      showDialog<void>(
-                        context: context,
-                        builder: (context) => CreateLeagueDialog(),
+                  },
+                ),
+                SizedBox(
+                  width: _width < 450 ? _width / 3 : _width / 2,
+                  child: TextField(
+                    controller: pokemonLeagueController,
+                    decoration: InputDecoration(
+                      hintText: 'Search for a League!',
+                      hintStyle: TextStyle(fontSize: _width < 450 ? 10 : 15),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(15)),
                       ),
+                    ),
+                    onChanged: (value) {
+                      bloc.add(SearchLeague(input: value));
                     },
                   ),
-                  SizedBox(
-                    width: _width < 450 ? _width / 3 : _width / 2,
-                    child: TextField(
-                      controller: pokemonLeagueController,
-                      decoration: InputDecoration(
-                        hintText: 'Search for a League!',
-                        hintStyle: TextStyle(fontSize: _width < 450 ? 10 : 15),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                        ),
-                      ),
-                      onChanged: (value) {
-                        bloc.add(SearchLeague(input: value));
-                      },
-                    ),
+                ),
+                SizedBox(
+                  width: 500,
+                  height: 500,
+                  child: ListView.builder(
+                    itemCount: pokemonFilteredLeagues.length,
+                    itemBuilder: (context, index) {
+                      return LeagueCard(
+                        league: pokemonFilteredLeagues[index],
+                      );
+                    },
                   ),
-                  SizedBox(
-                    width: 500,
-                    height: 500,
-                    child: ListView.builder(
-                      itemCount: pokemonFilteredLeagues.length,
-                      itemBuilder: (context, index) {
-                        return LeagueCard(
-                          league: pokemonFilteredLeagues[index],
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            );
-          },
-        ));
+                ),
+              ],
+            ),
+          );
+        },
+      ),
+    );
   }
 }
