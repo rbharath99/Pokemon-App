@@ -11,10 +11,12 @@ class PokemonLeaguePage extends StatelessWidget {
     Key? key,
     required this.leagueName,
     required this.teamRosters,
+    required this.roomId,
   }) : super(key: key);
 
   final String leagueName;
   final List<Map<String, List<String>>> teamRosters;
+  final String roomId;
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +165,7 @@ class PokemonLeaguePage extends StatelessWidget {
                 child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
                     stream: FirebaseFirestore.instance
                         .collection('League')
-                        .where('roomId', isEqualTo: 'iNerhfqHTf')
+                        .where('roomId', isEqualTo: roomId)
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.data == null) {

@@ -17,6 +17,7 @@ class LeagueCard extends StatelessWidget {
             builder: (context) => PokemonLeaguePage(
               leagueName: league.name,
               teamRosters: league.teamRoster,
+              roomId: league.roomId,
             ),
           ),
         );

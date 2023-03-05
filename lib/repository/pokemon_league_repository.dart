@@ -19,7 +19,7 @@ class PokemonLeagueRepository {
   Future<void> addRoster(List<Map<String, List<String>>> team) async {
     await _fireBaseFireStore
         .collection('League')
-        .doc('ka1FLcl4f3gznjsacAAu')
+        .doc('hRq2bJ8X8JykiwSC3vCQ')
         .update(
       {
         'teamRoster': team,
