@@ -16,7 +16,6 @@ class LeagueCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => PokemonLeaguePage(
               leagueName: league.name,
-              roomId: league.roomId,
               teamRosters: league.teamRoster,
             ),
           ),

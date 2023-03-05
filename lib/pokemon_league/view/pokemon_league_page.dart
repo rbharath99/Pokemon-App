@@ -9,12 +9,10 @@ class PokemonLeaguePage extends StatelessWidget {
   const PokemonLeaguePage({
     Key? key,
     required this.leagueName,
-    required this.roomId,
     required this.teamRosters,
   }) : super(key: key);
 
   final String leagueName;
-  final String roomId;
   final List<Map<String, List<String>>> teamRosters;
 
   @override
@@ -133,7 +131,6 @@ class PokemonLeaguePage extends StatelessWidget {
                             AddRosterToLeague(
                               pokemonNames:
                                   pokemonRoster.map((e) => e.name).toList(),
-                              roomId: roomId,
                               teamRosters: teamRosters,
                             ),
                           ),

@@ -40,14 +40,12 @@ class SearchLeague extends PokemonLeagueEvent {
 class AddRosterToLeague extends PokemonLeagueEvent {
   final List<String> pokemonNames;
   final List<Map<String, List<String>>> teamRosters;
-  final String roomId;
 
   const AddRosterToLeague({
     required this.pokemonNames,
-    required this.roomId,
     required this.teamRosters,
   });
 
   @override
-  List<Object?> get props => [pokemonNames, roomId, teamRosters];
+  List<Object?> get props => [pokemonNames, teamRosters];
 }
