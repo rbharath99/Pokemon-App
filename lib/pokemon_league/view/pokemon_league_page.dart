@@ -203,6 +203,9 @@ class PokemonLeaguePage extends StatelessWidget {
                   },
                 ),
               ),
+              SizedBox(
+                height: 35,
+              )
             ],
           ),
         ],
