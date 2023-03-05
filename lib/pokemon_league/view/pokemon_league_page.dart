@@ -178,7 +178,8 @@ class PokemonLeaguePage extends StatelessWidget {
                           itemCount: teamRosters.length,
                           itemBuilder: (context, index) {
                             final userId = teamRosters[index].keys.single;
-                            final teamRosterString = teamRosters[index].values.toString();
+                            final teamRosterString =
+                                teamRosters[index].values.toString();
                             return SizedBox(
                               width: 500,
                               height: 100,
