@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
@@ -159,46 +160,62 @@ class PokemonLeaguePage extends StatelessWidget {
                 width: 500,
                 height: 500,
                 color: Colors.red,
-                child: ListView.builder(
-                  physics: const BouncingScrollPhysics(),
-                  itemCount: teamRosters.length,
-                  itemBuilder: (context, index) {
-                    final userId = teamRosters[index].keys.single;
-                    final teamRoster = teamRosters[index].values.toString();
-                    return SizedBox(
-                      width: 500,
-                      height: 100,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                'Name: ',
-                                style: TextStyle(color: Colors.white),
+                child: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                    stream: FirebaseFirestore.instance
+                        .collection('League')
+                        .where('roomId', isEqualTo: 'iNerhfqHTf')
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.data == null) {
+                        return CircularProgressIndicator();
+                      } else {
+                        final List<QueryDocumentSnapshot<Map<String, dynamic>>>
+                            docs = snapshot.data!.docs;
+                        final doc = docs[0];
+                        final teamRosters = doc['teamRoster'];
+                        return ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          itemCount: teamRosters.length,
+                          itemBuilder: (context, index) {
+                            final userId = teamRosters[index].keys.single;
+                            final teamRosterString =
+                                teamRosters[index].values.toString();
+                            return SizedBox(
+                              width: 500,
+                              height: 100,
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Name: ',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Text(
+                                        userId,
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Roster: ',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Text(
+                                        teamRosterString,
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                              Text(
-                                userId,
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                'Roster: ',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              Text(
-                                teamRoster,
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                            );
+                          },
+                        );
+                      }
+                    }),
               ),
               SizedBox(
                 height: 35,
