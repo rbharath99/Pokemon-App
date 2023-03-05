@@ -163,6 +163,7 @@ class PokemonLeaguePage extends StatelessWidget {
                 height: 500,
                 color: Colors.red,
                 child: ListView.builder(
+                  physics: const BouncingScrollPhysics(),
                   itemCount: teamRosters.length,
                   itemBuilder: (context, index) {
                     final userId = teamRosters[index].keys.single;
