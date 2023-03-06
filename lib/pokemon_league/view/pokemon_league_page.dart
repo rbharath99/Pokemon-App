@@ -135,6 +135,7 @@ class PokemonLeaguePage extends StatelessWidget {
                               pokemonNames:
                                   pokemonRoster.map((e) => e.name).toList(),
                               teamRosters: teamRosters,
+                              roomId: roomId,
                             ),
                           ),
                       context.read<PokemonBloc>().add(
