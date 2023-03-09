@@ -5,10 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/app.dart';
 import 'package:pokedex/bloc_observer.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
+import 'package:pokedex/pokemon_league/bloc/pokemon_league_bloc.dart';
+import 'package:pokedex/pokemon_league_page/bloc/pokemon_league_page_bloc.dart';
 import 'package:pokedex/repository/pokemon_league_repository.dart';
 import 'package:pokedex/repository/pokemon_repository.dart';
-
-import 'pokemon_league/bloc/pokemon_league_bloc.dart';
 
 void main() async {
   await Firebase.initializeApp(
@@ -51,6 +51,11 @@ class Pokedex extends StatelessWidget {
               pokemonLeagueRepository: context.read<PokemonLeagueRepository>(),
             ),
           ),
+          BlocProvider(
+            create: (context) => PokemonLeaguePageBloc(
+              pokemonLeagueRepository: context.read<PokemonLeagueRepository>(),
+            ),
+          )
         ],
         child: App(),
       ),
