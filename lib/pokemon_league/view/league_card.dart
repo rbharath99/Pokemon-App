@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokedex/pokemon_league/models/league.dart';
-import 'package:pokedex/pokemon_league/view/pokemon_league_page.dart';
+import 'package:pokedex/pokemon_league_page/view/pokemon_league_page.dart';
 
 class LeagueCard extends StatelessWidget {
   const LeagueCard({Key? key, required this.league}) : super(key: key);
@@ -16,7 +16,6 @@ class LeagueCard extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => PokemonLeaguePage(
               leagueName: league.name,
-              teamRosters: league.teamRoster,
               roomId: league.roomId,
             ),
           ),

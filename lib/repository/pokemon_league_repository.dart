@@ -16,6 +16,21 @@ class PokemonLeagueRepository {
     return snapshot.docs.map((e) => League.fromJson(e.data())).toList();
   }
 
+  Stream<List<League>> getLeagues() =>
+      _fireBaseFireStore.collection('League').snapshots().map(
+          (event) => event.docs.map((e) => League.fromJson(e.data())).toList());
+
+  Stream<List<Map<String, List<String>>>> getRosters(String roomId) {
+    return _fireBaseFireStore
+        .collection('League')
+        .where('roomId', isEqualTo: roomId)
+        .snapshots()
+        .map((snapshot) => snapshot.docs
+            .map((doc) => League.fromJson(doc.data()))
+            .expand((league) => league.teamRoster)
+            .toList());
+  }
+
   Future<void> addRoster(
       List<Map<String, List<String>>> team, String roomId) async {
     final querySnapshot = await _fireBaseFireStore
