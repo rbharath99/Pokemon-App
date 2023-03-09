@@ -11,11 +11,6 @@ class PokemonLeagueRepository {
     await _fireBaseFireStore.collection('League').add(leagueData.toJson());
   }
 
-  Future<List<League>> fetchLeagues() async {
-    final snapshot = await _fireBaseFireStore.collection('League').get();
-    return snapshot.docs.map((e) => League.fromJson(e.data())).toList();
-  }
-
   Stream<List<League>> getLeagues() =>
       _fireBaseFireStore.collection('League').snapshots().map(
           (event) => event.docs.map((e) => League.fromJson(e.data())).toList());
