@@ -33,12 +33,13 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
         status: BlocStatus.loading,
       ),
     );
-    final pokemonLeagues = await _pokemonLeagueRepository.fetchLeagues();
-    emit(
-      state.copyWith(
-        pokemonLeagues: pokemonLeagues,
-        pokemonFilterLeagues: pokemonLeagues,
-        status: BlocStatus.success,
+    await emit.onEach<List<League>>(
+      _pokemonLeagueRepository.getLeagues(),
+      onData: (leagues) => emit(
+        state.copyWith(
+          pokemonFilterLeagues: leagues,
+          pokemonLeagues: leagues,
+        ),
       ),
     );
   }
@@ -61,7 +62,6 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
       teamRoster: [],
     );
     await _pokemonLeagueRepository.createLeague(league);
-    add(FetchLeagueInfo());
   }
 
   Future<void> _onSearchLeague(
