@@ -90,14 +90,6 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
     List<Map<String, List<String>>> pokemonRosters = List.from(teamRosters)
       ..add(payload);
     await _pokemonLeagueRepository.addRoster(pokemonRosters, roomId);
-    await emit.onEach<List<Map<String, List<String>>>>(
-      _pokemonLeagueRepository.getRosters(roomId),
-      onData: (rosters) => emit(
-        state.copyWith(
-          pokemonRosters: rosters,
-        ),
-      ),
-    );
   }
 
   String generateRandomId(int length) {
