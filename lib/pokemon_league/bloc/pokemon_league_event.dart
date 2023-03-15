@@ -51,3 +51,14 @@ class AddRosterToLeague extends PokemonLeagueEvent {
   @override
   List<Object?> get props => [pokemonNames, teamRosters, roomId];
 }
+
+class DeleteLeague extends PokemonLeagueEvent {
+  final String roomId;
+
+  const DeleteLeague({
+    required this.roomId,
+  });
+
+  @override
+  List<Object?> get props => [roomId];
+}

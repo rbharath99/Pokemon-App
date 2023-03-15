@@ -34,4 +34,14 @@ class PokemonLeagueRepository {
         .get();
     await querySnapshot.docs[0].reference.update({'teamRoster': team});
   }
+
+  Future<void> deleteLeague(String roomId) async {
+    final snapshot = await _fireBaseFireStore
+        .collection('League')
+        .where('roomId', isEqualTo: roomId)
+        .get();
+    await _fireBaseFireStore.runTransaction((transaction) async {
+      transaction.delete(snapshot.docs[0].reference);
+    });
+  }
 }
