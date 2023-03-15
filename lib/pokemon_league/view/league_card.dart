@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pokedex/pokemon_league/bloc/pokemon_league_bloc.dart';
 import 'package:pokedex/pokemon_league/models/league.dart';
 import 'package:pokedex/pokemon_league_page/view/pokemon_league_page.dart';
 
@@ -78,6 +80,27 @@ class LeagueCard extends StatelessWidget {
                   style: TextStyle(color: Colors.white),
                 ),
               ],
+            ),
+            TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(20),
+                  ),
+                ),
+              ),
+              onPressed: () {
+                context.read<PokemonLeagueBloc>().add(
+                      DeleteLeague(
+                        roomId: league.roomId,
+                      ),
+                    );
+              },
+              child: Text(
+                'Delete League',
+                style: TextStyle(color: Colors.red),
+              ),
             ),
           ],
         ),

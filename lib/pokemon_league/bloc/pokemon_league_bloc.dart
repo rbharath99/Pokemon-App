@@ -18,6 +18,7 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
     on<CreateLeague>(_onCreateLeague);
     on<SearchLeague>(_onSearchLeague);
     on<AddRosterToLeague>(_onAddRosterToLeague);
+    on<DeleteLeague>(_onDeleteLeague);
 
     add(FetchLeagueInfo());
   }
@@ -90,6 +91,14 @@ class PokemonLeagueBloc extends Bloc<PokemonLeagueEvent, PokemonLeagueState> {
     List<Map<String, List<String>>> pokemonRosters = List.from(teamRosters)
       ..add(payload);
     await _pokemonLeagueRepository.addRoster(pokemonRosters, roomId);
+  }
+
+  Future<void> _onDeleteLeague(
+    DeleteLeague event,
+    Emitter<PokemonLeagueState> emit,
+  ) async {
+    final roomId = event.roomId;
+    await _pokemonLeagueRepository.deleteLeague(roomId);
   }
 
   String generateRandomId(int length) {
