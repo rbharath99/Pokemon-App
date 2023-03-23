@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/pokemon_league/bloc/pokemon_league_bloc.dart';
-import 'package:pokedex/pokemon_league/models/league.dart';
+import 'package:league_repository/league_repository.dart';
 import 'package:pokedex/pokemon_league_page/view/pokemon_league_page.dart';
 
 class LeagueCard extends StatelessWidget {

@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:pokedex/pokemon_league/models/league.dart';
-import 'package:pokedex/repository/pokemon_league_repository.dart';
+import 'package:league_repository/league_repository.dart';
 import 'package:pokedex/utils/bloc_status.dart';
 
 part 'pokemon_league_page_event.dart';

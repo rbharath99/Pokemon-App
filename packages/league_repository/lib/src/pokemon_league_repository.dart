@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:pokedex/pokemon_league/models/league.dart';
+import 'models/league.dart';
 
 class PokemonLeagueRepository {
   PokemonLeagueRepository({required FirebaseFirestore fireBaseFireStore})
