@@ -42,6 +42,10 @@ dependencies:
   firebase_core: ^2.7.0
   cloud_firestore: ^4.4.3
   firebase_storage: ^11.0.14
+  pokemon_repository:
+    path: packages/pokemon_repository
+  league_repository:
+    path: packages/league_repository
 
 dev_dependencies:
   flutter_test:

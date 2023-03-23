@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokedex/pokemon/models/pokemon.dart';
-import 'package:pokedex/repository/pokemon_repository.dart';
+import 'package:pokemon_repository/pokemon_repository.dart';
 import 'package:pokedex/utils/bloc_status.dart';
 
 part 'pokemon_event.dart';

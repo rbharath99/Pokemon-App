@@ -13,6 +13,7 @@ class Pokemon {
   final List<String> weaknesses;
 
   static const empty = Pokemon(
+
     number: '',
     name: '',
     image: '',

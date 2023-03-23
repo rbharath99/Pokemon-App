@@ -1,6 +1,8 @@
 import 'dart:convert';
 
-import 'package:pokedex/pokemon/models/pokemon.dart';
+import 'package:flutter/material.dart';
+
+import 'models/pokemon.dart';
 import 'package:http/http.dart' as http;
 
 class PokemonRepository {
@@ -15,7 +17,7 @@ class PokemonRepository {
           data.map((item) => Pokemon.fromJson(item)).toList();
       return pokemons;
     } catch (e) {
-      print('Data could not be fetched -> $e');
+      debugPrint('Data could not be fetched -> $e');
       return [];
     }
   }
