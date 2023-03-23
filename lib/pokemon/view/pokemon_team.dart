@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
 import 'package:pokedex/pokemon/dialog/pokemon_selection.dart';
-import 'package:pokedex/pokemon/models/pokemon.dart';
+import 'package:pokemon_repository/pokemon_repository.dart';
 import 'package:pokedex/utils/map_pokemon_type_to_color.dart';
 
 class PokemonTeam extends StatelessWidget {

@@ -8,7 +8,7 @@ import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
 import 'package:pokedex/pokemon_league/bloc/pokemon_league_bloc.dart';
 import 'package:pokedex/pokemon_league_page/bloc/pokemon_league_page_bloc.dart';
 import 'package:pokedex/repository/pokemon_league_repository.dart';
-import 'package:pokedex/repository/pokemon_repository.dart';
+import 'package:pokemon_repository/pokemon_repository.dart';
 
 void main() async {
   await Firebase.initializeApp(

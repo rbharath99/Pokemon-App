@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pokedex/pokemon/models/pokemon.dart';
+import 'package:pokemon_repository/pokemon_repository.dart';
 import 'package:pokedex/utils/map_pokemon_type_to_color.dart';
 
 class PokemonDetailsScreen extends StatelessWidget {
