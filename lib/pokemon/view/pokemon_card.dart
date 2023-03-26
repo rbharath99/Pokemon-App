@@ -1,32 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
 import 'package:pokemon_repository/pokemon_repository.dart';
 import 'package:pokedex/pokemon/view/pokemon_details.dart';
 import 'package:pokedex/utils/map_pokemon_type_to_color.dart';
 
-class PokemonCard extends StatelessWidget {
+class PokemonCard extends StatefulWidget {
   const PokemonCard({Key? key, required this.pokemon}) : super(key: key);
 
   final Pokemon pokemon;
 
   @override
+  State<PokemonCard> createState() => _PokemonCardState();
+}
+
+class _PokemonCardState extends State<PokemonCard> {
+  @override
   Widget build(BuildContext context) {
     final List<Pokemon> myPokemonsList =
         context.select((PokemonBloc bloc) => bloc.state.myPokemons);
-    final bool isFound = myPokemonsList.contains(pokemon);
+    final bool isFound = myPokemonsList.contains(widget.pokemon);
     return OutlinedButton(
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PokemonDetailsScreen(pokemon: pokemon),
-          ),
+        context.goNamed(
+          'pokemon',
+          params: {'name': widget.pokemon.name},
+          extra: widget.pokemon,
         );
       },
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
-          retrievePokemonType(pokemon.type[0]),
+          retrievePokemonType(widget.pokemon.type[0]),
         ),
       ),
       child: Row(
@@ -36,19 +41,19 @@ class PokemonCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Text(
-                'Name: ${pokemon.name}',
+                'Name: ${widget.pokemon.name}',
                 style: TextStyle(
                   color: Colors.black,
                 ),
               ),
               Text(
-                'Height: ${pokemon.height}',
+                'Height: ${widget.pokemon.height}',
                 style: TextStyle(
                   color: Colors.black,
                 ),
               ),
               Text(
-                'Weigth: ${pokemon.weight}',
+                'Weigth: ${widget.pokemon.weight}',
                 style: TextStyle(
                   color: Colors.black,
                 ),
@@ -56,7 +61,7 @@ class PokemonCard extends StatelessWidget {
             ],
           ),
           Spacer(),
-          Image.network(pokemon.image),
+          Image.network(widget.pokemon.image),
           Spacer(),
           isFound
               ? CircleAvatar(
@@ -66,12 +71,12 @@ class PokemonCard extends StatelessWidget {
                     icon: Icon(
                       Icons.remove,
                       color: retrievePokemonType(
-                        pokemon.type[0],
+                        widget.pokemon.type[0],
                       ),
                     ),
                     onPressed: () => context.read<PokemonBloc>().add(
                           RemovePokemon(
-                            pokemon: pokemon,
+                            pokemon: widget.pokemon,
                           ),
                         ),
                   ),
@@ -83,12 +88,12 @@ class PokemonCard extends StatelessWidget {
                     icon: Icon(
                       Icons.add,
                       color: retrievePokemonType(
-                        pokemon.type[0],
+                        widget.pokemon.type[0],
                       ),
                     ),
                     onPressed: () => context.read<PokemonBloc>().add(
                           AddPokemon(
-                            pokemon: pokemon,
+                            pokemon: widget.pokemon,
                           ),
                         ),
                   ),

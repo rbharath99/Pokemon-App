@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pokemon_repository/pokemon_repository.dart';
 import 'package:pokedex/pokemon/view/pokemon_details.dart';
 import 'package:pokedex/utils/map_pokemon_type_to_color.dart';
@@ -44,13 +45,8 @@ class MyPokemonListView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return OutlinedButton(
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PokemonDetailsScreen(
-                                    pokemon: myPokemonList[index]),
-                              ),
-                            );
+                            context.goNamed('pokemon',
+                                params: {'name': myPokemonList[index].name});
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(

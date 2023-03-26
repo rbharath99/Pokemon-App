@@ -4,9 +4,13 @@ import 'package:pokedex/utils/map_pokemon_type_to_color.dart';
 
 class PokemonDetailsScreen extends StatelessWidget {
   final Pokemon pokemon;
+  final String pokemonName;
 
-  const PokemonDetailsScreen({Key? key, required this.pokemon})
-      : super(key: key);
+  const PokemonDetailsScreen({
+    Key? key,
+    required this.pokemon,
+    required this.pokemonName,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

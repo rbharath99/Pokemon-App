@@ -1,6 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pokedex/pokemon/view/pokemon_details.dart';
+import 'package:pokemon_repository/pokemon_repository.dart';
 
 import 'pokemon/view/pokemon_list_view.dart';
+
+final GoRouter _router = GoRouter(
+  routes: <RouteBase>[
+    GoRoute(
+      name: '/',
+      path: '/',
+      builder: (BuildContext context, GoRouterState state) {
+        return const PokemonListView();
+      },
+      routes: <RouteBase>[
+        GoRoute(
+          name: 'pokemon',
+          path: 'pokemon/:name',
+          builder: (BuildContext context, GoRouterState state) {
+            Pokemon pokemon = state.extra as Pokemon;
+            return PokemonDetailsScreen(
+              pokemon: pokemon,
+              pokemonName: state.params['name']!,
+            );
+          },
+        ),
+      ],
+    ),
+  ],
+);
 
 class App extends StatelessWidget {
   const App({
@@ -9,36 +37,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: _router,
       title: 'Pokédex',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text(
-            'Pokedex',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          backgroundColor: Colors.red,
-          centerTitle: true,
-        ),
-        body: PokemonListView(),
-        bottomNavigationBar: Container(
-          height: 56,
-          color: Colors.red,
-          child: Center(
-            child: Text(
-              'Gotta Catch ’Em All',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }
