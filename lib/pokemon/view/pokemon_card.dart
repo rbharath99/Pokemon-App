@@ -22,7 +22,7 @@ class _PokemonCardState extends State<PokemonCard> {
     final bool isFound = myPokemonsList.contains(widget.pokemon);
     return OutlinedButton(
       onPressed: () {
-        context.goNamed(
+        context.pushNamed(
           'pokemon',
           params: {'name': widget.pokemon.name},
           extra: widget.pokemon,

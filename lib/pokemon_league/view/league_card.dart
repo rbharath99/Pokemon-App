@@ -13,7 +13,7 @@ class LeagueCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: () {
-        context.goNamed(
+        context.pushNamed(
           'league',
           params: {
             'roomID': league.roomId,

@@ -20,7 +20,7 @@ class MyPokemonListView extends StatelessWidget {
         title: Text(
           'My Pokemons',
           style: TextStyle(
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
         backgroundColor: Colors.red,
@@ -45,7 +45,7 @@ class MyPokemonListView extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return OutlinedButton(
                           onPressed: () {
-                            context.goNamed('pokemon',
+                            context.pushNamed('mypokemon',
                                 params: {'name': myPokemonList[index].name});
                           },
                           style: ButtonStyle(

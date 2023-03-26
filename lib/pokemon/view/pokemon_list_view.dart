@@ -142,7 +142,7 @@ class _PokemonListViewState extends State<PokemonListView> {
                               ),
                             ),
                             onPressed: () {
-                              context.goNamed('my-pokemon');
+                              context.pushNamed('my-pokemon');
                             },
                             child: Text(
                               'My Pokemon',
@@ -160,7 +160,7 @@ class _PokemonListViewState extends State<PokemonListView> {
                               ),
                             ),
                             onPressed: () {
-                              context.goNamed('pokemon-team');
+                              context.pushNamed('pokemon-team');
                             },
                             child: Text(
                               'Pokemon Team',
@@ -177,7 +177,7 @@ class _PokemonListViewState extends State<PokemonListView> {
                               ),
                             ),
                             onPressed: () {
-                              context.goNamed('pokemon-league');
+                              context.pushNamed('pokemon-league');
                             },
                             child: Text(
                               'Pokemon League',
