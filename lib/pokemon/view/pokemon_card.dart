@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
 import 'package:pokemon_repository/pokemon_repository.dart';
-import 'package:pokedex/pokemon/view/pokemon_details.dart';
 import 'package:pokedex/utils/map_pokemon_type_to_color.dart';
 
 class PokemonCard extends StatefulWidget {

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pokemon_repository/pokemon_repository.dart';
-import 'package:pokedex/pokemon/view/pokemon_details.dart';
+import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
 import 'package:pokedex/utils/map_pokemon_type_to_color.dart';
 
 class MyPokemonListView extends StatelessWidget {
-  const MyPokemonListView({Key? key, required this.myPokemonList})
-      : super(key: key);
-
-  final List<Pokemon> myPokemonList;
+  const MyPokemonListView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _height = MediaQuery.of(context).size.height;
     final _width = MediaQuery.of(context).size.width;
+    final myPokemonList = context.select((PokemonBloc bloc) => bloc.state.myPokemons);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

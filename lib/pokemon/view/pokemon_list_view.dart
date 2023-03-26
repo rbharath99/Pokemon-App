@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pokedex/pokemon/view/my_pokemon_view.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pokedex/pokemon/view/pokemon_card.dart';
-import 'package:pokedex/pokemon/view/pokemon_team.dart';
-import 'package:pokedex/pokemon_league/view/pokemon_league_view.dart';
 import 'package:pokedex/utils/status_widgets/pokemon_error.dart';
 import 'package:pokedex/utils/status_widgets/loading_bar.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
@@ -144,14 +142,7 @@ class _PokemonListViewState extends State<PokemonListView> {
                               ),
                             ),
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => MyPokemonListView(
-                                    myPokemonList: myPokemonList,
-                                  ),
-                                ),
-                              );
+                              context.goNamed('my-pokemon');
                             },
                             child: Text(
                               'My Pokemon',
@@ -169,14 +160,7 @@ class _PokemonListViewState extends State<PokemonListView> {
                               ),
                             ),
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => PokemonTeam(
-                                    myPokemonList: myPokemonList,
-                                  ),
-                                ),
-                              );
+                              context.goNamed('pokemon-team');
                             },
                             child: Text(
                               'Pokemon Team',
@@ -193,12 +177,7 @@ class _PokemonListViewState extends State<PokemonListView> {
                               ),
                             ),
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => PokemonLeague(),
-                                ),
-                              );
+                              context.goNamed('pokemon-league');
                             },
                             child: Text(
                               'Pokemon League',

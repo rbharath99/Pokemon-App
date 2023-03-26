@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pokedex/pokemon_league/bloc/pokemon_league_bloc.dart';
 import 'package:league_repository/league_repository.dart';
-import 'package:pokedex/pokemon_league_page/view/pokemon_league_page.dart';
 
 class LeagueCard extends StatelessWidget {
   const LeagueCard({Key? key, required this.league}) : super(key: key);
@@ -13,14 +13,12 @@ class LeagueCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton(
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PokemonLeaguePage(
-              leagueName: league.name,
-              roomId: league.roomId,
-            ),
-          ),
+        context.goNamed(
+          'league',
+          params: {
+            'roomID': league.roomId,
+          },
+          extra: league.name,
         );
       },
       child: Container(
