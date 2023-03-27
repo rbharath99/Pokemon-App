@@ -18,7 +18,6 @@ class LeagueCard extends StatelessWidget {
           params: {
             'roomID': league.roomId,
           },
-          extra: league.name,
         );
       },
       child: Container(
