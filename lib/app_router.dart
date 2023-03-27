@@ -38,6 +38,41 @@ class AppRouter {
               return null;
             },
           ),
+          GoRoute(
+            name: 'pokemon-league',
+            path: 'pokemon-league',
+            builder: (BuildContext context, GoRouterState state) {
+              return const PokemonLeague();
+            },
+            routes: <RouteBase>[
+              GoRoute(
+                name: 'league',
+                path: 'league/:roomID',
+                builder: (BuildContext context, GoRouterState state) {
+                  final roomID = state.params['roomID']!;
+                  final pokemonLeagues =
+                      context.read<PokemonLeagueBloc>().state.pokemonLeagues;
+                  final pokemonLeague = pokemonLeagues.firstWhere(
+                      (pokemonLeague) => pokemonLeague.roomId == roomID);
+                  return PokemonLeaguePage(
+                    league: pokemonLeague,
+                    roomId: roomID,
+                  );
+                },
+                redirect: (context, state) {
+                  if (state.location.contains('/league') &&
+                      context
+                          .read<PokemonLeagueBloc>()
+                          .state
+                          .pokemonLeagues
+                          .isEmpty) {
+                    return '/pokemon-league';
+                  }
+                  return null;
+                },
+              ),
+            ],
+          ),
         ],
       ),
       GoRoute(
@@ -53,41 +88,6 @@ class AppRouter {
         builder: (BuildContext context, GoRouterState state) {
           return const PokemonTeam();
         },
-      ),
-      GoRoute(
-        name: 'pokemon-league',
-        path: '/pokemon-league',
-        builder: (BuildContext context, GoRouterState state) {
-          return const PokemonLeague();
-        },
-        routes: <RouteBase>[
-          GoRoute(
-            name: 'league',
-            path: 'league/:roomID',
-            builder: (BuildContext context, GoRouterState state) {
-              final roomID = state.params['roomID']!;
-              final pokemonLeagues =
-                  context.read<PokemonLeagueBloc>().state.pokemonLeagues;
-              final pokemonLeague = pokemonLeagues.firstWhere(
-                  (pokemonLeague) => pokemonLeague.roomId == roomID);
-              return PokemonLeaguePage(
-                league: pokemonLeague,
-                roomId: roomID,
-              );
-            },
-            redirect: (context, state) {
-              if (state.location.contains('/league') &&
-                  context
-                      .read<PokemonLeagueBloc>()
-                      .state
-                      .pokemonLeagues
-                      .isEmpty) {
-                return '/pokemon-league';
-              }
-              return null;
-            },
-          ),
-        ],
       ),
     ],
   );
