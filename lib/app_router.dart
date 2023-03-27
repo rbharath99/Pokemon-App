@@ -6,7 +6,6 @@ import 'package:pokedex/pokemon/view/views.dart';
 import 'package:pokedex/pokemon_league/bloc/pokemon_league_bloc.dart';
 import 'package:pokedex/pokemon_league/view/views.dart';
 import 'package:pokedex/pokemon_league_page/view/views.dart';
-import 'package:pokemon_repository/pokemon_repository.dart';
 
 class AppRouter {
   final GoRouter _router = GoRouter(
@@ -22,10 +21,13 @@ class AppRouter {
             name: 'pokemon',
             path: 'pokemon/:name',
             builder: (BuildContext context, GoRouterState state) {
-              Pokemon pokemon = state.extra as Pokemon;
+              final name = state.params['name']!;
+              final pokemons = context.read<PokemonBloc>().state.pokemons;
+              final pokemon =
+                  pokemons.firstWhere((pokemon) => pokemon.name == name);
               return PokemonDetailsScreen(
                 pokemon: pokemon,
-                pokemonName: state.params['name']!,
+                pokemonName: name,
               );
             },
             redirect: (context, state) {
@@ -63,10 +65,14 @@ class AppRouter {
             name: 'league',
             path: 'league/:roomID',
             builder: (BuildContext context, GoRouterState state) {
-              String leagueName = state.extra as String;
+              final roomID = state.params['roomID']!;
+              final pokemonLeagues =
+                  context.read<PokemonLeagueBloc>().state.pokemonLeagues;
+              final pokemonLeague = pokemonLeagues.firstWhere(
+                  (pokemonLeague) => pokemonLeague.roomId == roomID);
               return PokemonLeaguePage(
-                leagueName: leagueName,
-                roomId: state.params['roomID']!,
+                league: pokemonLeague,
+                roomId: roomID,
               );
             },
             redirect: (context, state) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:league_repository/league_repository.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
 import 'package:pokedex/pokemon/dialog/pokemon_selection.dart';
 import 'package:pokedex/pokemon_league/bloc/pokemon_league_bloc.dart';
@@ -10,11 +11,11 @@ import 'package:pokedex/utils/map_pokemon_type_to_color.dart';
 class PokemonLeaguePage extends StatelessWidget {
   const PokemonLeaguePage({
     Key? key,
-    required this.leagueName,
+    required this.league,
     required this.roomId,
   }) : super(key: key);
 
-  final String leagueName;
+  final League league;
   final String roomId;
 
   @override
@@ -25,7 +26,7 @@ class PokemonLeaguePage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(
-          leagueName,
+          league.name,
           style: TextStyle(
             color: Colors.white,
           ),
@@ -38,7 +39,7 @@ class PokemonLeaguePage extends StatelessWidget {
           final teamRosters = state.pokemonRosters;
           final bloc = context.read<PokemonLeaguePageBloc>();
           if (state.status == BlocStatus.initial) {
-            bloc.add(FetchLeagueRoster(roomId: roomId));
+            bloc.add(FetchLeagueRoster(roomId: league.roomId));
           }
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -141,7 +142,7 @@ class PokemonLeaguePage extends StatelessWidget {
                                   pokemonNames:
                                       pokemonRoster.map((e) => e.name).toList(),
                                   teamRosters: teamRosters,
-                                  roomId: roomId,
+                                  roomId: league.roomId,
                                 ),
                               ),
                           context.read<PokemonBloc>().add(
