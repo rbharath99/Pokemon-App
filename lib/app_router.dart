@@ -6,6 +6,7 @@ import 'package:pokedex/pokemon/view/views.dart';
 import 'package:pokedex/pokemon_league/bloc/pokemon_league_bloc.dart';
 import 'package:pokedex/pokemon_league/view/views.dart';
 import 'package:pokedex/pokemon_league_page/view/views.dart';
+import 'package:pokedex/utils/status_widgets/loading_bar.dart';
 
 class AppRouter {
   final GoRouter _router = GoRouter(
@@ -24,7 +25,7 @@ class AppRouter {
               final name = state.params['name']!;
               final pokemons = context.watch<PokemonBloc>().state.pokemons;
               if (pokemons.isEmpty) {
-                return CircularProgressIndicator();
+                return LoadingBar();
               }
               final pokemon =
                   pokemons.firstWhere((pokemon) => pokemon.name == name);
@@ -49,7 +50,7 @@ class AppRouter {
                   final pokemonLeagues =
                       context.watch<PokemonLeagueBloc>().state.pokemonLeagues;
                   if (pokemonLeagues.isEmpty) {
-                    return CircularProgressIndicator();
+                    return LoadingBar();
                   }
                   final pokemonLeague = pokemonLeagues.firstWhere(
                       (pokemonLeague) => pokemonLeague.roomId == roomID);
