@@ -22,20 +22,16 @@ class AppRouter {
             path: 'pokemon/:name',
             builder: (BuildContext context, GoRouterState state) {
               final name = state.params['name']!;
-              final pokemons = context.read<PokemonBloc>().state.pokemons;
+              final pokemons = context.watch<PokemonBloc>().state.pokemons;
+              if (pokemons.isEmpty) {
+                return CircularProgressIndicator();
+              }
               final pokemon =
                   pokemons.firstWhere((pokemon) => pokemon.name == name);
               return PokemonDetailsScreen(
                 pokemon: pokemon,
                 pokemonName: name,
               );
-            },
-            redirect: (context, state) {
-              if (state.location.contains('/pokemon') &&
-                  context.read<PokemonBloc>().state.pokemons.isEmpty) {
-                return '/';
-              }
-              return null;
             },
           ),
           GoRoute(
@@ -51,24 +47,16 @@ class AppRouter {
                 builder: (BuildContext context, GoRouterState state) {
                   final roomID = state.params['roomID']!;
                   final pokemonLeagues =
-                      context.read<PokemonLeagueBloc>().state.pokemonLeagues;
+                      context.watch<PokemonLeagueBloc>().state.pokemonLeagues;
+                  if (pokemonLeagues.isEmpty) {
+                    return CircularProgressIndicator();
+                  }
                   final pokemonLeague = pokemonLeagues.firstWhere(
                       (pokemonLeague) => pokemonLeague.roomId == roomID);
                   return PokemonLeaguePage(
                     league: pokemonLeague,
                     roomId: roomID,
                   );
-                },
-                redirect: (context, state) {
-                  if (state.location.contains('/league') &&
-                      context
-                          .read<PokemonLeagueBloc>()
-                          .state
-                          .pokemonLeagues
-                          .isEmpty) {
-                    return '/pokemon-league';
-                  }
-                  return null;
                 },
               ),
             ],
