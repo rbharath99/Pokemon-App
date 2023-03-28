@@ -46,6 +46,7 @@ dependencies:
     path: packages/pokemon_repository
   league_repository:
     path: packages/league_repository
+  go_router: ^6.5.0
 
 dev_dependencies:
   flutter_test:

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'pokemon/view/pokemon_list_view.dart';
+import 'package:pokedex/app_router.dart';
 
 class App extends StatelessWidget {
   const App({
@@ -9,36 +8,10 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: AppRouter().router,
       title: 'Pokédex',
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          title: Text(
-            'Pokedex',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-          backgroundColor: Colors.red,
-          centerTitle: true,
-        ),
-        body: PokemonListView(),
-        bottomNavigationBar: Container(
-          height: 56,
-          color: Colors.red,
-          child: Center(
-            child: Text(
-              'Gotta Catch ’Em All',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-              ),
-            ),
-          ),
-        ),
-      ),
     );
   }
 }

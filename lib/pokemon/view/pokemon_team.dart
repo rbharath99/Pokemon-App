@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pokedex/pokemon/bloc/pokemon_bloc.dart';
 import 'package:pokedex/pokemon/dialog/pokemon_selection.dart';
-import 'package:pokemon_repository/pokemon_repository.dart';
 import 'package:pokedex/utils/map_pokemon_type_to_color.dart';
 
 class PokemonTeam extends StatelessWidget {
-  const PokemonTeam({Key? key, required this.myPokemonList}) : super(key: key);
-
-  final List<Pokemon> myPokemonList;
+  const PokemonTeam({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
