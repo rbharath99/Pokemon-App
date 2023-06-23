@@ -46,7 +46,7 @@ class PokemonCard extends StatelessWidget {
                 ),
               ),
               Text(
-                'Weigth: ${pokemon.weight}',
+                'Weight: ${pokemon.weight}',
                 style: TextStyle(
                   color: Colors.black,
                 ),
