@@ -26,6 +26,11 @@ class PokemonCard extends StatelessWidget {
         backgroundColor: MaterialStateProperty.all(
           retrievePokemonType(pokemon.type[0]),
         ),
+        shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0),
+          ),
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
