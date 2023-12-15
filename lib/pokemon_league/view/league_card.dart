@@ -20,6 +20,13 @@ class LeagueCard extends StatelessWidget {
           },
         );
       },
+      style: ButtonStyle(
+        shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0),
+          ),
+        ),
+      ),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10),
         color: Colors.red,
