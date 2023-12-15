@@ -76,7 +76,6 @@ class _PokemonListViewState extends State<PokemonListView> {
           builder: (context, state) {
             final bloc = context.read<PokemonBloc>();
             final pokemonFilteredList = state.filteredPokemons;
-            final myPokemonList = state.myPokemons;
             if (state.status == BlocStatus.initial) {
               bloc.add(FetchPokemonData());
             }
