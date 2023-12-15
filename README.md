@@ -2,12 +2,12 @@
 
 A Flutter Application that focuses on Pokemon!.
 
-## How to Use
+## How to run locally
 1. Clone the repository
 2. Run `flutter pub get`
 3. Run `flutter run -d web-server`
 
-## Libraries that were used
+## Libraries/Packages used
 - http
 - flutter_bloc
 - equatable
